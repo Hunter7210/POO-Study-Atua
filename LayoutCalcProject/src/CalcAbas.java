@@ -6,6 +6,8 @@ public class CalcAbas extends JTabbedPane {
 
         this.add("Calculadora normal", new CalcNormal());
         this.add("Calculadora IMC", new CaclImc());
+        this.add("Calculadora", new Calculadora());
+        this.add("Calculadora IMC", new CalcCombustivel());
 
     }
 }

@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.net.CookieHandler;
-
 import javax.swing.*;
 
 /* LAYOUTS UTILIZADOS: 
@@ -36,7 +34,7 @@ public class CaclImc extends JPanel {
         this.add(preenchimentInf, BorderLayout.CENTER);
 
         JPanel painelcontem = new JPanel(new GridLayout());
-        preenchimentInf.add(painelcontem);
+        preenchimentInf.add(painelcontem);  
 
         // Criando um painel dentro de preenchimentoInf para conter os componentes
         JPanel meio = new JPanel(new GridLayout(4, 1));
