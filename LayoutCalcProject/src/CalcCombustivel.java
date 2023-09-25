@@ -47,7 +47,7 @@ public class CalcCombustivel extends JPanel {
         int tamanhoInput = 20;
         Font fontInput = new Font("Serif", Font.PLAIN, 20);
         Font fontLabel = new Font("Serif", Font.PLAIN, 15);
-        Font fontInputResult = new Font("Serif", Font.PLAIN, 40);
+       /*  Font fontInputResult = new Font("Serif", Font.PLAIN, 40); */
 
         JLabel titDistancia = new JLabel("Distância Percorrida:");
         JLabel titConsumo = new JLabel("Consumo Médio:");

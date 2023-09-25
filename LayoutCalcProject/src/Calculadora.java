@@ -8,10 +8,10 @@ public class Calculadora extends JPanel {
 
     public Calculadora() {
         super();
-    
 
-       /*  this.setBounds(500, 500, 500, 300);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        /*
+         * this.setBounds(500, 500, 500, 300);
+         * this.setDefaultCloseOperation(EXIT_ON_CLOSE);
          */
         // criando Layers para posicionamento
         JPanel painelRei = new JPanel();
@@ -40,7 +40,7 @@ public class Calculadora extends JPanel {
         painelLay4.setBackground(Color.gray);
         painelLay4.setBounds(100, 220, 250, 40);
 
-       /*  this.add(painelRei); */
+        /* this.add(painelRei); */
 
         // Criando Botões
         JButton botaoDividir = new JButton("/");
@@ -93,7 +93,7 @@ public class Calculadora extends JPanel {
         painelRei.add(painelLay3);
         painelRei.add(painelLay4);
 
-        this.setVisible(true);
+        /* this.setVisible(true); */
 
         /* DEIXANDO FUNCIONAL */
 
