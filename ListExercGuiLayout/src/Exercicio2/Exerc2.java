@@ -1,5 +1,6 @@
 package Exercicio2;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,10 +10,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 
 public class Exerc2 extends JFrame {
@@ -23,22 +27,25 @@ public class Exerc2 extends JFrame {
 
         // Criando um obj dos Layouts
         BorderLayout bl = new BorderLayout();
-        GridLayout gl = new GridLayout(5, 1);
+        GridLayout gl5x1 = new GridLayout(5, 1);
+        GridLayout gl3x1 = new GridLayout(3, 1);
         FlowLayout fl = new FlowLayout();
         CardLayout cl = new CardLayout();
 
-        // Criando o painel principal
-        JPanel painelCardMud = new JPanel();
 
-        // Criando o painel dos cards
+        // Criando o painel principal
         JPanel painelPrinc = new JPanel();
 
-        painelCardMud.add(painelPrinc, "4");
+        // Criando o painel dos cards
+        JPanel painelCardMud = new JPanel();
+
+        //painelCardMud.add(painelPrinc, "4"); Não posso fazer isso aqui, pois ele vai mostrar primeiro o o painel princ, e só dps ele vai gerar e mostrar os outros paineis
 
         // Criar os cards/telas
         JPanel cardLogin = new JPanel();
         JPanel cardCad = new JPanel();
         JPanel cardGalery = new JPanel();
+
 
         /* SETANDO OS LAYOUTS DOS PAINEIS */
 
@@ -46,20 +53,19 @@ public class Exerc2 extends JFrame {
         painelCardMud.setLayout(cl);
 
         // Setando para
-        painelPrinc.setLayout(fl);
+        painelPrinc.setLayout(bl);
 
         // Setando os paineis do card
-        cardLogin.setLayout(gl);
-        cardCad.setLayout(gl);
-        cardGalery.setLayout(gl);
+        cardLogin.setLayout(gl5x1);
+        cardCad.setLayout(gl5x1);
+        cardGalery.setLayout(gl5x1);
+
 
         /* CRIANDO OS COMPONENTES */
 
         // Criando os componentes da pagina pricipal
 
-        JLabel textoLogin = new JLabel("Faça Login: ");
-        JLabel textoCad = new JLabel("Faça Cadastro:");
-        JLabel textoGalery = new JLabel("Veja a Galeria:");
+        JLabel titInicial = new JLabel("ESCOLHA UMA ABA!");
 
         JButton btnLogin = new JButton("Login");
         JButton btnCad = new JButton("Cadastro");
@@ -78,6 +84,8 @@ public class Exerc2 extends JFrame {
         // Botao retorno
         JButton btnReturnAnterLogin = new JButton("Voltar");
 
+
+
         // Criando elementos da pagina de Cadastro
 
         // Caixa para preencher
@@ -95,28 +103,47 @@ public class Exerc2 extends JFrame {
         // Botao retorno
         JButton btnReturnAnterCad = new JButton("Voltar");
 
+
         // Criando elementos da pagina de Galeria
+ /*        ImageIcon image = new ImageIcon(getClass().getResource("folha.png"));
 
-        // Add os LABELS
-        /*
-         * cardLogin.add(textoLogin);
-         * cardCad.add(textoCad);
-         * cardGalery.add(textoGalery);
-         * 
-         */
+        JLabel imgLabel = new JLabel(image); */
 
-        // Add ao painel Principal
-        painelCardMud.add(cardLogin,"1");
-        painelCardMud.add(cardCad,"2");
-        painelCardMud.add(cardGalery, "3");
+        JButton btnReturnAnterGallery = new JButton("Voltar");
 
-        // Add os elementos a Janela dos cards
 
-        // Add os BTNS
-        painelCardMud.add(painelPrinc,"4");
-        painelPrinc.add(btnLogin);
-        painelPrinc.add(btnCad);
-        painelPrinc.add(btnGalery);
+        /* 
+        ADD OS CARDS AO PAINEL DE MUDANÇA DE CARDS
+        */
+
+        //Add os painel principal ao painel dos cards
+        painelCardMud.add(painelPrinc, "Menu"); 
+
+         // Add ao painel Principal
+        painelCardMud.add(cardLogin, "Login");
+        painelCardMud.add(cardCad, "Cadastro");
+        painelCardMud.add(cardGalery, "Galeria");
+        
+        
+        /* 
+        ADD OS ELEMENTOS
+        */
+
+    JPanel alinhamentobtn = new JPanel();
+    painelPrinc.add(alinhamentobtn, BorderLayout.CENTER);
+    alinhamentobtn.setLayout(gl3x1);
+
+
+
+
+    /* alinhamentobtn.setBorder(); */
+
+        // Add os BTNS ao painel principal
+        painelPrinc.add(titInicial, BorderLayout.NORTH);
+        alinhamentobtn.add(btnLogin);
+        alinhamentobtn.add(btnCad);
+        alinhamentobtn.add(btnGalery);
+
 
         // ADD componentes ao CardLogin
         cardLogin.add(textNomeLogin);
@@ -137,56 +164,90 @@ public class Exerc2 extends JFrame {
         cardCad.add(btnReturnAnterCad);
 
         // Add componentes ao cardGalery
+        cardGalery.add(btnReturnAnterGallery);
+        /* cardGalery.add(imgLabel);
+ */
+
+        /* 
+        SETANDO AS CORES
+         */
+
+        //Setando as cores do painel principal
+        painelPrinc.setBackground(Color.ORANGE);
+
+        //Setando as cores dos paineis dos cards 
+        cardLogin.setBackground(Color.ORANGE);
+        cardCad.setBackground(Color.ORANGE);
+        cardGalery.setBackground(Color.ORANGE);
+      
+
+        //Setando as cores dos botões inicial
+        btnLogin.setBackground(Color.DARK_GRAY);
+        btnCad.setBackground(Color.DARK_GRAY);
+        btnGalery.setBackground(Color.DARK_GRAY);
+        
+        //Setando as cores dos textos dos botões
+        btnLogin.setForeground(Color.WHITE);
+        btnCad.setForeground(Color.WHITE);
+        btnGalery.setForeground(Color.WHITE);
+
+
+        //Setando as cores dos botões de voltar
+        btnReturnAnterLogin.setBackground(Color.DARK_GRAY);
+        btnReturnAnterCad.setBackground(Color.DARK_GRAY);
+        btnReturnAnterGallery.setBackground(Color.DARK_GRAY);
+        
+        //Setando as cores dos textos dos botões de voltar
+        btnReturnAnterLogin.setForeground(Color.WHITE);
+        btnReturnAnterCad.setForeground(Color.WHITE);
+        btnReturnAnterGallery.setForeground(Color.WHITE);
+        
+
 
         /* CRIANDO AÇÕES PARA OS BOTÕES */
 
-        // Criando ação para pagina seguinte
+
+        // Criando ação para pagina de login
         btnLogin.addActionListener(e -> {
-            /* 
-            if (cl.equals(cardLogin)) {
-                cl.next(painelCardMud); */
-                /* cl.next(painelCardMud); */
-                 cl.show(painelCardMud, "1");
+            cl.show(painelCardMud, "Login");
 
-            /* }else{
-                JOptionPane exibir = new JOptionPane();
-
-                exibir.showMessageDialog(null, "Não foi");
-            }
- */
         });
         // Criando ação para pagina anterior/inicial
         btnReturnAnterLogin.addActionListener(e -> {
             /* cl.previous(painelCardMud); */
-            cl.show(painelCardMud, "4");
+            cl.show(painelCardMud, "Menu");
         });
 
-        // Criando ação para pagina seguinte
+        // Criando ação para pagina de cadastro
         btnCad.addActionListener(e -> {
-            cl.show(painelCardMud, "2");
+            cl.show(painelCardMud, "Cadastro");
         });
+
         // Criando ação para pagina anterior/inicial
         btnReturnAnterCad.addActionListener(e -> {
             /* cl.previous(painelCardMud); */
-            cl.show(painelCardMud, "4");
+            cl.show(painelCardMud, "Menu");
         });
 
-        // Criando ação para pagina seguinte
+        // Criando ação para pagina de Galeria
         btnGalery.addActionListener(e -> {
             /* cl.next(painelCardMud); */
-            cl.show(painelCardMud, "3");
+            cl.show(painelCardMud, "Galeria");
         });
-        /*
-         * // Criando ação para pagina anterior/inicial
-         * btnReturnAnterGallery.addActionListener(e -> {
-         * cl.previous(painelCardMud);
-         * cl.show(painelCardMud, "4");
-         * });
-         */
-
-        // Setando as confis do Frame
+    
+        // Criando ação para pagina anterior/inicial
+        btnReturnAnterGallery.addActionListener(e -> {
+        cl.previous(painelCardMud);
+        cl.show(painelCardMud, "Menu");
+        });
+        
+        
+        /* 
+            SETANDO AS CONFIGS DO FRAME
+        */
+        
         this.add(painelCardMud);
-        this.setBounds(100, 100, 300, 300);
+        this.setBounds(500, 200, 400, 400);
         this.setDefaultCloseOperation(2);
         this.setVisible(true);
 
