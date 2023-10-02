@@ -170,7 +170,9 @@ public class Exerc5 extends JFrame { // Isso significa que o Exerc5 é uma subCl
 
         botaoRespPag1.addActionListener(e -> {
             if (camAtribRespPag1.getText().equals(repostasPerg[0])) {
+                
                 pontuacao.add("-");
+
                 showPagPontF.setText("Sua pontuação é de: " + pontuacao.size());
                 cl.show(painelPrinc, "Tela2Jogo");
 
