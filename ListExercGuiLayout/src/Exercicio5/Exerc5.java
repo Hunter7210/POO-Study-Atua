@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,9 +12,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Exerc5 extends JFrame { // Isso significa que o Exerc5 é uma subClasse de JFrame, transformando do a em
                                      // uma Janela
+    /*
+     * RESPOSTAS CERTAS
+     */
+
+    // Criando um array para conter as respostas corretas
+    String repostasPerg[] = new String[] { "RESP1", "RESP2", "RESP3", "RESP4", "RESP5" };
+
+    // Criando um array para conter as vidas
+    ArrayList vidas = new ArrayList<>();
+
+    ArrayList pontuacao = new ArrayList<>();
 
     public Exerc5() {
         super("Exercicio 5 - Jogo");
@@ -27,31 +40,20 @@ public class Exerc5 extends JFrame { // Isso significa que o Exerc5 é uma subCl
         // CRIAÇÃO DOS PAINEIS
 
         // Criando a tela inicial com o layout CardLayout
-        JPanel painelPrinc = new JPanel();
-        JPanel cardTelaStart = new JPanel();
-        JPanel cardTelaJogo1 = new JPanel();
-        JPanel cardTelaJogo2 = new JPanel();
-        JPanel cardTelaJogo3 = new JPanel();
-        JPanel cardTelaJogo4 = new JPanel();
-        JPanel cardTelaJogo5 = new JPanel();
-        JPanel cardTelaPontF = new JPanel();
-        JPanel cardTelaPerdeu = new JPanel();
+        JPanel painelPrinc = new JPanel(cl);
+        JPanel cardTelaStart = new JPanel(fl);
+        JPanel cardTelaJogo1 = new JPanel(gl);
+        JPanel cardTelaJogo2 = new JPanel(gl);
+        JPanel cardTelaJogo3 = new JPanel(gl);
+        JPanel cardTelaJogo4 = new JPanel(gl);
+        JPanel cardTelaJogo5 = new JPanel(gl);
+        JPanel cardTelaPontF = new JPanel(gl);
+        JPanel cardTelaPerdeu = new JPanel(gl);
 
         // Setando o painel principal a janela
         this.add(painelPrinc);
 
         // ATRIBUINDO OS LAYOUTS
-
-        // Atribuindo os layouts nos cards
-        painelPrinc.setLayout(cl);
-        cardTelaStart.setLayout(fl);
-        cardTelaJogo1.setLayout(gl);
-        cardTelaJogo2.setLayout(gl);
-        cardTelaJogo3.setLayout(gl);
-        cardTelaJogo4.setLayout(gl);
-        cardTelaJogo5.setLayout(gl);
-        cardTelaPontF.setLayout(gl);
-        cardTelaPerdeu.setLayout(gl);
 
         // Setando os paineis ao painelPric
         painelPrinc.add(cardTelaStart, "TelaInicGam");
@@ -74,40 +76,40 @@ public class Exerc5 extends JFrame { // Isso significa que o Exerc5 é uma subCl
         // Criando os componentes para a Pag 1
         JLabel titPagJogo1 = new JLabel("QUESTÃO 1:");
         JLabel pergunPagJogo1 = new JLabel("Questao");
-        JTextArea camAtribRespPag1 = new JTextArea();
+        JTextField camAtribRespPag1 = new JTextField();
         JButton botaoRespPag1 = new JButton("Validar");
 
         // Criando os componentes para a Pag 2
         JLabel titPagJogo2 = new JLabel("QUESTÃO 2:");
         JLabel pergunPagJogo2 = new JLabel("Questao");
-        JTextArea camAtribRespPag2 = new JTextArea();
+        JTextField camAtribRespPag2 = new JTextField();
         JButton botaoRespPag2 = new JButton("Validar");
 
         // Criando os componentes para a Pag 3
         JLabel titPagJogo3 = new JLabel("QUESTÃO 3:");
         JLabel pergunPagJogo3 = new JLabel("Questao");
-        JTextArea camAtribRespPag3 = new JTextArea();
+        JTextField camAtribRespPag3 = new JTextField();
         JButton botaoRespPag3 = new JButton("Validar");
 
         // Criando os componentes para a Pag 4
         JLabel titPagJogo4 = new JLabel("QUESTÃO 4:");
         JLabel pergunPagJogo4 = new JLabel("Questao");
-        JTextArea camAtribRespPag4 = new JTextArea();
+        JTextField camAtribRespPag4 = new JTextField();
         JButton botaoRespPag4 = new JButton("Validar");
 
         // Criando os componentes para a Pag 5
         JLabel titPagJogo5 = new JLabel("QUESTÃO 5:");
         JLabel pergunPagJogo5 = new JLabel("Questao");
-        JTextArea camAtribRespPag5 = new JTextArea();
+        JTextField camAtribRespPag5 = new JTextField();
         JButton botaoRespPag5 = new JButton("Validar");
 
         // Criando os componentes para a pag pontuação
         JLabel titPagPontF = new JLabel("PONTUAÇÃO");
-        JLabel showPagPontF = new JLabel("1");
+        JLabel showPagPontF = new JLabel("");
         JButton btnRecomGame = new JButton("Voltar a Home");
 
         // Criando os componentes para a pag de perdedor
-        JLabel titPagPerdeu = new JLabel("PONTUAÇÃO");
+        JLabel titPagPerdeu = new JLabel("YOU LOSE");
         JLabel showPagPerdeu = new JLabel("1");
 
         /*
@@ -152,50 +154,138 @@ public class Exerc5 extends JFrame { // Isso significa que o Exerc5 é uma subCl
         cardTelaPontF.add(titPagPontF);
         cardTelaPontF.add(showPagPontF);
         cardTelaPontF.add(btnRecomGame);
-    
+
         // Add a Tela ao painel de Pontuação
         cardTelaPerdeu.add(titPagPerdeu);
         cardTelaPerdeu.add(showPagPerdeu);
+        cardTelaPerdeu.add(btnRecomGame);
 
         /*
          * CRIANDO AÇÕES PARA OS BTNS
          */
-
-        String repostasPerg[] = new String[] { "RESP1", "RESP2", "RESP3", "RESP4", "RESP5" };
-
-        int vidas[] =new int[3];
 
         botaoIniciarGame.addActionListener(e -> {
             cl.show(painelPrinc, "Tela1Jogo");
         });
 
         botaoRespPag1.addActionListener(e -> {
-            if (camAtribRespPag1.getText().equals(repostasPerg[1])) {
+            if (camAtribRespPag1.getText().equals(repostasPerg[0])) {
+                pontuacao.add("-");
+                showPagPontF.setText("Sua pontuação é de: " + pontuacao.size());
                 cl.show(painelPrinc, "Tela2Jogo");
 
             } else {
-                JOptionPane.showMessageDialog(null, "Erroou");
+                vidas.add("-");
+
+                showPagPerdeu.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "TelaVcPerdeu");
+
+                if (vidas.size() == 3) {
+                    titPagPerdeu.setText("SUAS CHANCES SE ESGOTARAM");
+                    cl.show(painelPrinc, "TelaVcPerdeu");
+                }
             }
         });
 
         botaoRespPag2.addActionListener(e -> {
-            cl.show(painelPrinc, "Tela3Jogo");
+
+            if (camAtribRespPag2.getText().equals(repostasPerg[1])) {
+                pontuacao.add("-");
+                showPagPontF.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "Tela3Jogo");
+
+            } else {
+                vidas.add("-");
+                showPagPerdeu.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "TelaVcPerdeu");
+
+                if (vidas.size() == 3) {
+
+                    titPagPerdeu.setText("SUAS CHANCES SE ESGOTARAM");
+                    cl.show(painelPrinc, "TelaVcPerdeu");
+
+                }
+
+            }
+
         });
 
         botaoRespPag3.addActionListener(e -> {
-            cl.show(painelPrinc, "Tela4Jogo");
+
+            if (camAtribRespPag3.getText().equals(repostasPerg[2])) {
+
+                pontuacao.add("-");
+                showPagPontF.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "Tela4Jogo");
+
+            } else {
+                vidas.add("-");
+
+                showPagPerdeu.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "TelaVcPerdeu");
+                if (vidas.size() == 3) {
+
+                    titPagPerdeu.setText("SUAS CHANCES SE ESGOTARAM");
+                    cl.show(painelPrinc, "TelaVcPerdeu");
+
+                }
+
+            }
+
         });
 
         botaoRespPag4.addActionListener(e -> {
-            cl.show(painelPrinc, "Tela5Jogo");
+
+            if (camAtribRespPag4.getText().equals(repostasPerg[3])) {
+                pontuacao.add("-");
+                showPagPontF.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "Tela5Jogo");
+
+            } else {
+                vidas.add("-");
+                showPagPerdeu.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "TelaVcPerdeu");
+                if (vidas.size() == 3) {
+                    titPagPerdeu.setText("SUAS CHANCES SE ESGOTARAM");
+                    cl.show(painelPrinc, "TelaVcPerdeu");
+
+                }
+
+            }
+
         });
 
         botaoRespPag5.addActionListener(e -> {
-            cl.show(painelPrinc, "TelaVerPontFin");
+
+            if (camAtribRespPag5.getText().equals(repostasPerg[4])) {
+                pontuacao.add("-");
+                showPagPontF.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "TelaVerPontFin");
+
+            } else {
+                vidas.add("-");
+                showPagPerdeu.setText("Sua pontuação é de: " + pontuacao.size());
+                cl.show(painelPrinc, "TelaVcPerdeu");
+
+                if (vidas.size() == 3) {
+                    titPagPerdeu.setText("SUAS CHANCES SE ESGOTARAM");
+                    cl.show(painelPrinc, "TelaVcPerdeu");
+                }
+
+            }
         });
 
         btnRecomGame.addActionListener(e -> {
-            cl.show(painelPrinc, "TelaInicGam");
+            if (vidas.size() == 3) {
+                pontuacao.clear();
+                vidas.clear();
+                titPagPerdeu.setText("SUAS CHANCES SE ESGOTARAM");
+                cl.show(painelPrinc, "TelaInicGam");
+            } else {
+
+                cl.show(painelPrinc, "Tela1Jogo");
+
+            }
         });
 
         /*
