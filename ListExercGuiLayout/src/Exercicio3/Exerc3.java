@@ -1,4 +1,4 @@
-package Exercicio2;
+package Exercicio3;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,10 +19,10 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
-public class Exerc2 extends JFrame {
+public class Exerc3 extends JFrame {
 
     // Chamando o construtor
-    public Exerc2() {
+    public Exerc3() {
         super("Ativ3 CardLayout");
 
         // Criando um obj dos Layouts
@@ -34,12 +34,12 @@ public class Exerc2 extends JFrame {
 
 
         // Criando o painel principal
-        JPanel painelPrinc = new JPanel();
+        JPanel cardPrinc = new JPanel();
 
         // Criando o painel dos cards
         JPanel painelCardMud = new JPanel();
 
-        //painelCardMud.add(painelPrinc, "4"); Não posso fazer isso aqui, pois ele vai mostrar primeiro o o painel princ, e só dps ele vai gerar e mostrar os outros paineis
+        //painelCardMud.add(cardPrinc, "4"); Não posso fazer isso aqui, pois ele vai mostrar primeiro o o painel princ, e só dps ele vai gerar e mostrar os outros paineis
 
         // Criar os cards/telas
         JPanel cardLogin = new JPanel();
@@ -52,10 +52,10 @@ public class Exerc2 extends JFrame {
         // Setando para cardLayout
         painelCardMud.setLayout(cl);
 
-        // Setando para
-        painelPrinc.setLayout(bl);
+        
 
         // Setando os paineis do card
+        cardPrinc.setLayout(bl);
         cardLogin.setLayout(gl5x1);
         cardCad.setLayout(gl5x1);
         cardGalery.setLayout(gl5x1);
@@ -117,7 +117,7 @@ public class Exerc2 extends JFrame {
         */
 
         //Add os painel principal ao painel dos cards
-        painelCardMud.add(painelPrinc, "Menu"); 
+        painelCardMud.add(cardPrinc, "Menu"); 
 
          // Add ao painel Principal
         painelCardMud.add(cardLogin, "Login");
@@ -130,7 +130,7 @@ public class Exerc2 extends JFrame {
         */
 
     JPanel alinhamentobtn = new JPanel();
-    painelPrinc.add(alinhamentobtn, BorderLayout.CENTER);
+    cardPrinc.add(alinhamentobtn, BorderLayout.CENTER);
     alinhamentobtn.setLayout(gl3x1);
 
 
@@ -139,7 +139,7 @@ public class Exerc2 extends JFrame {
     /* alinhamentobtn.setBorder(); */
 
         // Add os BTNS ao painel principal
-        painelPrinc.add(titInicial, BorderLayout.NORTH);
+        cardPrinc.add(titInicial, BorderLayout.NORTH);
         alinhamentobtn.add(btnLogin);
         alinhamentobtn.add(btnCad);
         alinhamentobtn.add(btnGalery);
@@ -173,7 +173,7 @@ public class Exerc2 extends JFrame {
          */
 
         //Setando as cores do painel principal
-        painelPrinc.setBackground(Color.ORANGE);
+        cardPrinc.setBackground(Color.ORANGE);
 
         //Setando as cores dos paineis dos cards 
         cardLogin.setBackground(Color.ORANGE);
@@ -208,19 +208,28 @@ public class Exerc2 extends JFrame {
 
 
         // Criando ação para pagina de login
-        btnLogin.addActionListener(e -> {
-            cl.show(painelCardMud, "Login");
+    String nomedospaineis;
 
+        btnLogin.addActionListener(e -> {
+            cl.show(painelCardMud, btnLogin.getText());
         });
+            
         // Criando ação para pagina anterior/inicial
         btnReturnAnterLogin.addActionListener(e -> {
             /* cl.previous(painelCardMud); */
             cl.show(painelCardMud, "Menu");
-        });
+        });        
+
 
         // Criando ação para pagina de cadastro
-        btnCad.addActionListener(e -> {
-            cl.show(painelCardMud, "Cadastro");
+        btnCad.addActionListener(e -> {/* 
+            cl.show(painelCardMud, "Cadastro"); */
+            if (btnCad.getText()== "Login") {
+                
+            }
+            btnCad.setText("Login");
+            cl.show(painelCardMud, btnCad.getText());
+            /* cl.show(painelCardMud, "Cadastro"); */
         });
 
         // Criando ação para pagina anterior/inicial
