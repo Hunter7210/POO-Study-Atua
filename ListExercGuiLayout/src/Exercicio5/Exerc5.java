@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -162,6 +162,10 @@ public class Exerc5 extends JFrame { // Isso significa que o Exerc5 é uma subCl
 
         /*
          * CRIANDO AÇÕES PARA OS BTNS
+         * TRATAMENTO DE EVENTOS
+         * 
+         * Pesquisar HANDLER
+         * handler é onde manipular as ações
          */
 
         botaoIniciarGame.addActionListener(e -> {
