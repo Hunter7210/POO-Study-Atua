@@ -32,21 +32,20 @@ public class Exerc1 extends JFrame {
     private JPanel painelContText = new JPanel(gl1x2);
     private JPanel painelDigitText = new JPanel(gl1x2);
 
-    //Criação dos textos
+    // Criação dos textos
     private JLabel textTit = new JLabel("Rastreamento de teclado");
     private JLabel textUltTec = new JLabel("Ultima tecla:");
     private JLabel textDig = new JLabel("Digite seu texto aqui:");
     private JLabel textVerDig = new JLabel("Veja o que digitou aqui:");
 
-    //Criação da area de texto
+    // Criação da area de texto
     private JTextArea areaTextUltTec = new JTextArea(4, 8);
     private JTextArea verTextDig = new JTextArea("Veja aqui");
 
-    //Criação da caixa de texto
+    // Criação da caixa de texto
     private JTextField digText = new JTextField("Digite aqui");
-    
 
-    //Construtor
+    // Construtor
     public Exerc1() {
         super();
 
@@ -68,35 +67,45 @@ public class Exerc1 extends JFrame {
         painelDigitText.add(digText);
         painelDigitText.add(verTextDig);
 
-        //Chamando o Handler
+        // Chamando o Handler
         Handler evento = new Handler();
-        areaTextUltTec.addKeyListener(evento);
-        
+        digText.addKeyListener(evento);
 
-        //Setando as config do painel principal
+        // Setando as config do painel principal
         this.add(painelPrinc);
-        this.setVisible(true);
+
         this.setDefaultCloseOperation(2);
         this.setBounds(300, 400, 400, 400);
 
     }
 
-    //Criação do Handler
+    public void Run() {
+        this.setVisible(true);
+
+    }
+
+    // Criação do Handler
     public class Handler implements KeyListener {
-
+        //Para declarar os os metodos é necessário utilizar:
+            //Source action, Btn Direito  escolha source Action, e dps implements
+         //Ou aperte no quick  Actions (A lampada amarela de erros no VSCode)
+        //Tem que declar todos os metodos mesmo os que não forem utilizar
         @Override
-        public void keyPressed(KeyEvent e) {
-            
+        public void keyPressed(KeyEvent e) { //Ao pressionar/segurar a tecla
+
         }
 
         @Override
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e) { //Ao soltar a tecla
 
+            verTextDig.setText(digText.getText());
         }
 
         @Override
-        public void keyTyped(KeyEvent e) {
-            areaTextUltTec.setText(digText.getText());
+        public void keyTyped(KeyEvent e) { //Presionado
+            char typedKey = e.getKeyChar();
+            areaTextUltTec.setText("" + typedKey);
+
         }
 
     }

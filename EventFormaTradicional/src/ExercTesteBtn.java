@@ -17,9 +17,13 @@ import java.awt.event.ActionListener;
  */
 public class ExercTesteBtn extends JFrame /* implements ActionListener */ {
 
+    //Atributos
     private JButton btnGo;
+    private JTextField resposNome, resposSobre;
+    private JLabel respConcat;
 
-    public ExercTesteBtn(){
+    //Construtor
+    public ExercTesteBtn() {
         super();
 
         // Criando obj dos Layouts
@@ -35,10 +39,10 @@ public class ExercTesteBtn extends JFrame /* implements ActionListener */ {
         // Criando os elementos
         JLabel nomeLabel = new JLabel("Nome: ");
         JLabel sobreLabel = new JLabel("Sobrenome: ");
-        JTextField resposNome = new JTextField();
-        JTextField resposSobre = new JTextField();
-        JLabel respConcat = new JLabel();
-        JButton btnGo = new JButton("Enviar");
+        resposNome = new JTextField();
+        resposSobre = new JTextField();
+        respConcat = new JLabel();
+        btnGo = new JButton("Enviar");
 
         // Add os componentes ao painel principal
         painelPrinc.add(nomeLabel);
@@ -48,22 +52,32 @@ public class ExercTesteBtn extends JFrame /* implements ActionListener */ {
         painelPrinc.add(respConcat);
         painelPrinc.add(btnGo);
 
+        // Chamando/criando o evento
+        // CHAMOU O EVENTO PEÇO PELA FORMA MAIS COMUM
+        // Para isso funcionar, é necessário importar os eventos "import
+        // java.awt.event.ActionEvent; import java.awt.event.ActionListener;"
 
-        //Chamando/criando o evento
-        //CHAMOU O EVENTO PEÇO PELA FORMA MAIS COMUM
-        //Para isso funcionar, é necessário importar os eventos "import java.awt.event.ActionEvent; import java.awt.event.ActionListener;"
 
-        btnGo.addActionListener(new ActionListener(){
+
+
+
+        //METODO TRADIOCINAL
+        /* btnGo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-            
-            respConcat.setText(resposNome.getText()+""+resposSobre.getText());
-            resposNome.setText("");
-            resposSobre.setText("");   
-        }});
+
+                respConcat.setText(resposNome.getText() + "" + resposSobre.getText());
+                resposNome.setText("");
+                resposSobre.setText("");
+            }
+        }); */
+
+
+        //Usando o handler
+        Handler evento = new Handler();
+        btnGo.addActionListener(evento); //ActionListener sempre ira ter
 
         // Setando as configs da janela
         this.setVisible(true);
-        
         this.setBackground(Color.CYAN);
         /* this.setLocation(revalidate(),CENTER_ALIGNMENT); */
         this.setBounds(500, 100, 300, 150);
@@ -71,5 +85,22 @@ public class ExercTesteBtn extends JFrame /* implements ActionListener */ {
 
     }
 
+    // Tratamento de eventos pelo manipulador
+    // Criar a classe handler fora do construtor
+
+    public class Handler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            respConcat.setText(resposNome.getText() + "" + resposSobre.getText());
+            resposNome.setText("");
+            resposSobre.setText("");
+//Para chamar chamar os elementos que estão dentro do construtor
+        }
+        // Handler é um implemento de ActionListener, implements faz com que a Handler
+        // deve conter algum metodo da ActionLister
+        // Um atalho para a criação dos metodos é usar o Quick
+
+    }
 
 }
