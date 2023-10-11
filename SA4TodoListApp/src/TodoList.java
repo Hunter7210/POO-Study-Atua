@@ -1,17 +1,28 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.MouseInputListener;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Desktop.Action;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class TodoList extends JFrame { // Extends significa fazer uma subclasse de JFrame
 
@@ -80,6 +91,101 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         this.add(mainPanel);
 
         // TRATAMENTO DE EVENTOS
+        addButton.addActionListener(e -> {
+            addTask();
+        });
+
+        Handler hand = new Handler();
+
+        taskList.addMouseListener(hand);
+        taskInputField.addKeyListener(hand);
+
+    }
+
+    /**
+     * Handler
+     */
+    public class Handler implements MouseListener, MouseMotionListener, KeyListener {
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            /* listModel(tasks).setVisible(false); */
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) { // Click
+            
+            if (e.getClickCount() == 2) {
+                int index = taskList.getSelectedIndex();
+                if (index >= 1 && index < tasks.size()) {
+                    Task task = tasks.get(index); // Pegou o elemento do arraylist
+                    task.setDone(true); // Usando o Setters do outro metodo
+                    if (task.isDone() == true) {
+                        taskList.setSelectionBackground(Color.GREEN);
+
+                    } else {
+                        taskList.setSelectionBackground(Color.red);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) { // ESTA EM CIMA
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) { // não tem nada
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) { // Pressionado
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        // TECLADO
+        // Adionar uma tarefa apertando a tecla ENTER
+        @Override
+        public void keyPressed(KeyEvent e) {
+            // if para comparar se o que foi digitado é igual a tecla Enter
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) { // VK.ENTER é o codigo para a tecla enter
+                // Perguntar se deseja adcionar
+                int funciona; // Variavel criada para receber valor do JOptionPane
+                funciona = JOptionPane.showConfirmDialog(null, "Deseja realmente adicionar tarefa:");
+
+                if (funciona == JOptionPane.YES_OPTION) {
+                    addTask();
+                } else {
+                    taskInputField.setText("");
+                }
+
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
     }
 
     // MÉTODOS
@@ -105,6 +211,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         if (selectedIndex >= 0 && selectedIndex < tasks.size()) { // Vê se ela existe
             tasks.remove(selectedIndex); // tasks é o meu Arraylist
             updateTaskList(); // Atualiza o Scroll
+
         }
     }
 
@@ -124,7 +231,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Filtra as tasks com base na seleção do JComboBox
         String filter = (String) filterComboBox.getSelectedItem();
         listModel.clear();
-        //FOREACH percorre o meu Arraylist 
+        // FOREACH percorre o meu Arraylist
         for (Task task : tasks) {
             if (filter.equals("Todas") || (filter.equals("Ativas") &&
                     !task.isDone()) || (filter.equals("Concluídas") && task.isDone())) {
@@ -149,7 +256,9 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Atualiza a lista de tasks exibida na GUI
         listModel.clear();
         for (Task task : tasks) {
-            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); //listModel é a lista que eu vou mostrar. O MEU TASKS É APENAS LÓGICO, JÁ O LISTMODEL É ONDE SE EXIBE, POSSUI INTERFACE GRAFICA. // /* ? */ Significa que é um if, é um if de forma simplificada chamado ternário
+            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); // listModel é a lista
+                                                                                                 // simplificada chamado
+                                                                                                 // // ternário
         }
     }
 
