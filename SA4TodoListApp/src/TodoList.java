@@ -94,8 +94,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
 
         // TRATAMENTO DE EVENTOS
         addButton.addActionListener(e -> {
-            addKeyListener(hand);
-
+            addTask();
         });
         deleteButton.addActionListener(e -> {
             deleteTask();
@@ -145,13 +144,12 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
                     Task task = tasks.get(index); // Pegou o elemento do arraylist
                     task.setDone(true); // Usando o Setters do outro metodo
                     if (task.isDone() == true) {
+                       /*  listModel.getElementAt(index); */
+                        
 
-                        /* taskList.setSelectionBackground(Color.GREEN); */
-                        markTaskDone();
-
-                    } else {
+                    } /* else {
                         taskList.setSelectionBackground(Color.red);
-                    }
+                    } */
                 }
             }
         }
@@ -218,6 +216,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         if (!taskDescription.isEmpty()) {
             Task newTask = new Task(taskDescription);
             tasks.add(newTask);
+
             updateTaskList();// Chama o outro metodo
             taskInputField.setText("");
         }
@@ -242,6 +241,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
             Task task = tasks.get(selectedIndex); // Pegou o elemento do arraylist
             task.setDone(true); // Usando o Setters do outro metodo
+           
 
             updateTaskList(); // Atualiza a tasklist
 
@@ -278,9 +278,12 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Atualiza a lista de tasks exibida na GUI
         listModel.clear();
         for (Task task : tasks) {
-            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); // listModel é a lista
-                                                                                                 // simplificada chamado
-                                                                                                 // ternário
+            if(task.isDone()) {
+                listModel.addElement("<html><font color='green>"+task.getDescription()+"(Conclupida)</font></h>");
+                listModel.addElement(task.getDescription());
+            }
+
+            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); // listModel é a lista simplificada chamado ternário
 
         }
     }
