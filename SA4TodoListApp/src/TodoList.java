@@ -1,3 +1,5 @@
+
+//Imports
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,15 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Desktop.Action;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+//Criação da classe, sendo uma extensão de JFrame
 public class TodoList extends JFrame { // Extends significa fazer uma subclasse de JFrame
 
     // ATRIBUTOS
@@ -35,6 +40,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
     // Ambas são da classe swing, ou seja, é focado para criação de tabelas.
     // Basicamente ela pega as listas que existem no meu sistema e a colocam de uma
     // forma grafica
+
     private JList<String> taskList; // JList é uma lista grafica, no caso pega so elementos da classe Task lá em
                                     // baixo
     private DefaultListModel<String> listModel;
@@ -90,11 +96,17 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Adiciona o painel principal à janela
         this.add(mainPanel);
 
-        Handler hand = new Handler();
+        // Fazendo o tratamento de eventos com o metodo Handler
+        Handler hand = new Handler(); // Criação de uma obj Handler
+
+        taskList.addMouseListener(hand); // Chamando um obj Handler
+        taskInputField.addKeyListener(hand);
+        addButton.addKeyListener(hand);
+        addButton.addFocusListener(hand);
 
         // TRATAMENTO DE EVENTOS
         addButton.addActionListener(e -> {
-            addTask();
+            addTask(); // Chama o metodo addTask
         });
         deleteButton.addActionListener(e -> {
             deleteTask();
@@ -112,17 +124,12 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
             clearCompletedTasks();
 
         });
-
-        taskList.addMouseListener(hand);
-        taskInputField.addKeyListener(hand);
-        /* addButton.addKeyListener(hand); */
-
     }
 
     /**
      * Handler
      */
-    public class Handler implements MouseListener, MouseMotionListener, KeyListener {
+    public class Handler implements MouseListener, MouseMotionListener, KeyListener, FocusListener {
 
         @Override
         public void mouseDragged(MouseEvent e) {
@@ -139,17 +146,19 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         public void mouseClicked(MouseEvent e) { // Click
 
             if (e.getClickCount() == 2) {
+
+                markTaskDone();
                 int index = taskList.getSelectedIndex();
                 if (index >= 0 && index < tasks.size()) {
                     Task task = tasks.get(index); // Pegou o elemento do arraylist
                     task.setDone(true); // Usando o Setters do outro metodo
-                    if (task.isDone() == true) {
-                       /*  listModel.getElementAt(index); */
-                        
 
-                    } /* else {
+                    if (task.isDone() == true) {
+
+                    } else {
                         taskList.setSelectionBackground(Color.red);
-                    } */
+                    }
+
                 }
             }
         }
@@ -181,15 +190,8 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
             // if para comparar se o que foi digitado é igual a tecla Enter
             if (e.getKeyCode() == KeyEvent.VK_ENTER) { // VK.ENTER é o codigo para a tecla enter
                 // Perguntar se deseja adcionar
-                int funciona; // Variavel criada para receber valor do JOptionPane
-                funciona = JOptionPane.showConfirmDialog(null, "Deseja realmente adicionar tarefa:");
-
-                if (funciona == JOptionPane.YES_OPTION) {
-                    addTask();
-                } else {
-                    taskInputField.setText("");
-                }
-
+                // Chama o metodo addTask.
+                addTask();
             }
 
         }
@@ -204,6 +206,19 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
 
         }
 
+        @Override
+        public void focusGained(FocusEvent e) { // Quando o elemento ganha o foco
+            mainPanel.setBackground(Color.black);
+            taskList.setForeground(Color.PINK);
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) { // Quando o elemento perde o foco
+            addButton.setBackground(Color.green);
+        }
+
+        // Focus Listener
+
     }
 
     // MÉTODOS
@@ -212,18 +227,27 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
     // CREATE, C DO CRUD
     private void addTask() {
         // Adiciona uma nova task à lista de tasks
-        String taskDescription = taskInputField.getText().trim();// TRIM = remove espaços vazios
-        if (!taskDescription.isEmpty()) {
-            Task newTask = new Task(taskDescription);
-            tasks.add(newTask);
+        int funciona; // Variavel criada para receber valor do JOptionPane
+        funciona = JOptionPane.showConfirmDialog(null, "Deseja realmente adicionar tarefa:");
 
-            updateTaskList();// Chama o outro metodo
+        // Para funcionar tanto no apertar do botão quanto para ao pressionar a tecla
+        // ENTER
+        if (funciona == JOptionPane.YES_OPTION) { // Se a escolha for SIM
+            String taskDescription = taskInputField.getText().trim();// TRIM = remove espaços vazios
+            if (!taskDescription.isEmpty()) {
+                Task newTask = new Task(taskDescription);
+                tasks.add(newTask);
+
+                updateTaskList();// Chama o outro metodo
+                taskInputField.setText("");
+            }
+        } else if (funciona == JOptionPane.NO_OPTION) { // Se a escolha for NÃO
             taskInputField.setText("");
         }
+        // Se a escolha for CANCEL o JOption ira apenas fechar.
     }
 
-    // DELETE, R DO CRUD
-
+    // DELETE, D DO CRUD
     private void deleteTask() {
         // Exclui a task selecionada da lista de tasks
         int selectedIndex = taskList.getSelectedIndex(); // Pega o index da tarefa que esta selecionado
@@ -241,7 +265,6 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
             Task task = tasks.get(selectedIndex); // Pegou o elemento do arraylist
             task.setDone(true); // Usando o Setters do outro metodo
-           
 
             updateTaskList(); // Atualiza a tasklist
 
@@ -278,13 +301,14 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Atualiza a lista de tasks exibida na GUI
         listModel.clear();
         for (Task task : tasks) {
-            if(task.isDone()) {
-                listModel.addElement("<html><font color='green>"+task.getDescription()+"(Conclupida)</font></h>");
+            if (task.isDone()) {
+                listModel.addElement("<html><font color='green>" + task.getDescription() + "(Concluida)</font></html>");
                 listModel.addElement(task.getDescription());
             }
 
-            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); // listModel é a lista simplificada chamado ternário
-
+            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); // listModel é a lista
+                                                                                                 // simplificada chamado
+                                                                                                 // ternário
         }
     }
 
