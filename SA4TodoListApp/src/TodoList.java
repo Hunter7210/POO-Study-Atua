@@ -23,6 +23,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class TodoList extends JFrame { // Extends significa fazer uma subclasse de JFrame
 
@@ -51,7 +53,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Configuração da janela principal
         super("To-Do List App");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(450, 400);
+        this.setBounds(500, 100, 450, 400);
 
         // Inicializa o painel principal
         mainPanel = new JPanel();
@@ -113,6 +115,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
 
         });
 
+        addWindowListener(hand);
         taskList.addMouseListener(hand);
         taskInputField.addKeyListener(hand);
         /* addButton.addKeyListener(hand); */
@@ -122,11 +125,10 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
     /**
      * Handler
      */
-    public class Handler implements MouseListener, MouseMotionListener, KeyListener {
+    public class Handler implements MouseListener, MouseMotionListener, KeyListener, WindowListener {
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            /* listModel(tasks).setVisible(false); */
 
         }
 
@@ -136,7 +138,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) { // Click
+        public void mouseClicked(MouseEvent e) { // Click do mouse
 
             if (e.getClickCount() == 2) {
                 int index = taskList.getSelectedIndex();
@@ -144,12 +146,8 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
                     Task task = tasks.get(index); // Pegou o elemento do arraylist
                     task.setDone(true); // Usando o Setters do outro metodo
                     if (task.isDone() == true) {
-                       /*  listModel.getElementAt(index); */
-                        
-
-                    } /* else {
-                        taskList.setSelectionBackground(Color.red);
-                    } */
+                        markTaskDone();
+                    }
                 }
             }
         }
@@ -204,6 +202,55 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
 
         }
 
+        // Eventos de WindowListeners
+        @Override
+        public void windowActivated(WindowEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void windowOpened(WindowEvent e) {
+            int ativarJFrame = 0;
+            mainPanel.setVisible(false);
+            JOptionPane.showConfirmDialog(null, "SEJA BEM VINDO!", "BEM VINDO", ativarJFrame);
+
+            if (ativarJFrame == 1) {
+                mainPanel.setVisible(true);
+
+            }
+        }
+
     }
 
     // MÉTODOS
@@ -241,7 +288,6 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
             Task task = tasks.get(selectedIndex); // Pegou o elemento do arraylist
             task.setDone(true); // Usando o Setters do outro metodo
-           
 
             updateTaskList(); // Atualiza a tasklist
 
@@ -278,12 +324,13 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Atualiza a lista de tasks exibida na GUI
         listModel.clear();
         for (Task task : tasks) {
-            if(task.isDone()) {
-                listModel.addElement("<html><font color='green>"+task.getDescription()+"(Conclupida)</font></h>");
+            if (task.isDone()) {
+                listModel
+                        .addElement("<html><font color='green'>" + task.getDescription() + "(Concluida)</font></html>");
+            } else {
                 listModel.addElement(task.getDescription());
             }
-
-            listModel.addElement(task.getDescription() + (task.isDone() ? " (Concluída)" : "")); // listModel é a lista simplificada chamado ternário
+            // listModel é a lista simplificada chamado ternário
 
         }
     }
