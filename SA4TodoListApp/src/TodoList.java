@@ -1,4 +1,3 @@
-
 //Imports
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +106,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         deleteButton.addActionListener(e -> {
             deleteTask();
 
-        });
+        });  
         markDoneButton.addActionListener(e -> {
             markTaskDone();
 
@@ -128,7 +127,6 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
      */
 
     public class Handler implements MouseListener, MouseMotionListener, KeyListener, WindowListener {
-       
         //Evento de Mouse
        //É necessário chamar todos os implementos, mesmo aqueles que não receberem função
         @Override
