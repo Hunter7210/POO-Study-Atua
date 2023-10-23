@@ -10,8 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import org.w3c.dom.events.MouseEvent;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +34,7 @@ public class Cadastro extends JFrame {
         setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        this.setVisible(true);
 
         // Formato da minha tabela, parte lógica
         tableModel = new DefaultTableModel(); // Definindo um obj
@@ -101,7 +100,8 @@ public class Cadastro extends JFrame {
         atualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operacoes.atualizarUsuario(linhaSelecionada, inputNome.getText(), inputIdade.getText());
+                operacoes.atualizarUsuario(linhaSelecionada, inputNome.getText(),
+                inputIdade.getText());
             }
         });
 

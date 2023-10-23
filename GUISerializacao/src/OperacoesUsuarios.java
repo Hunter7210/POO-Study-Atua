@@ -11,8 +11,7 @@ public class OperacoesUsuarios {
     private JTable table;
 
     // Construtor
-    public OperacoesUsuarios(List<Usuario> usuarios,
-            DefaultTableModel tableModel, JTable table) {
+    public OperacoesUsuarios(List<Usuario> usuarios, DefaultTableModel tableModel, JTable table) {
         // Definindo os elemetos do construtor
         this.usuarios = usuarios;
         this.tableModel = tableModel;
@@ -27,7 +26,7 @@ public class OperacoesUsuarios {
         atualizarTabela();
     }
 
-    public void atualizarUsuario(String nome, String idade) {
+    public void atualizarUsuario(int linhaSelecionada, String nome, String idade) {
         if (linhaSelecionada != -1) {
             int idadeInt = Integer.parseInt(idade);
             Usuario usuario = new Usuario(nome, idadeInt);
@@ -49,7 +48,7 @@ public class OperacoesUsuarios {
     }
 
     public void salvarUsuarios() {
-        Serializacao.serializar("dados.txt", usuarios)
+        Serializacao.serializar("dados.txt", usuarios);
     }
 
     public void atualizarTabela() {
