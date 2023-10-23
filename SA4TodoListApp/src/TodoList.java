@@ -89,6 +89,7 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
         // Adiciona o painel principal à janela
         this.add(mainPanel);
 
+
         // Fazendo o tratamento de eventos com o metodo Handler
         Handler hand = new Handler(); // Criação de uma obj Handler
 
@@ -266,7 +267,12 @@ public class TodoList extends JFrame { // Extends significa fazer uma subclasse 
     // DELETE, D DO CRUD
     private void deleteTask() {
         // Exclui a task selecionada da lista de tasks
-        int selectedIndex = taskList.getSelectedIndex(); // Pega o index da tarefa que esta selecionado
+        int selectedIndex = taskList.getSelectedIndex();
+        try {
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        } // Pega o index da tarefa que esta selecionado
         if (selectedIndex >= 0 && selectedIndex < tasks.size()) { // Vê se ela existe
             tasks.remove(selectedIndex); // tasks é o meu Arraylist
             updateTaskList(); // Atualiza o Scroll
