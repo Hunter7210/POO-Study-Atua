@@ -20,6 +20,7 @@ import java.io.File;
 
 public class Cadastro extends JFrame {
     // Atributos
+    private JPanel painelMain;
     private JTextField inputNome;
     private JTextField inputIdade;
     private DefaultTableModel tableModel; // Determina como a tabela vai ser construída
@@ -36,6 +37,8 @@ public class Cadastro extends JFrame {
         setLocationRelativeTo(null);
         this.setVisible(true);
 
+        painelMain = new JPanel();
+        this.add(painelMain);
         // Formato da minha tabela, parte lógica
         tableModel = new DefaultTableModel(); // Definindo um obj
         tableModel.addColumn("Nome"); // Add uma coluna a esse obj, ou seja add ao tablemodel
