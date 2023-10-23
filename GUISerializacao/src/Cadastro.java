@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,6 +22,8 @@ import java.io.File;
 public class Cadastro extends JFrame {
     // Atributos
     private JPanel painelMain;
+    private JPanel painelCadastro;
+    private JPanel painelAgenda;
     private JTextField inputNome;
     private JTextField inputIdade;
     private DefaultTableModel tableModel; // Determina como a tabela vai ser construída
@@ -32,13 +35,21 @@ public class Cadastro extends JFrame {
     public Cadastro() {
         // Configurações do JFrame
         setTitle("Cadastro de Usuários");
-        setSize(600, 300);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setVisible(true);
 
         painelMain = new JPanel();
         this.add(painelMain);
+
+        painelCadastro = new JPanel();
+        painelAgenda = new JPanel();
+
+        painelMain.setLayout(new CardLayout());
+        painelMain.add(painelCadastro, "Cadastro");
+        painelMain.add(painelAgenda, "Agenda");
+
         // Formato da minha tabela, parte lógica
         tableModel = new DefaultTableModel(); // Definindo um obj
         tableModel.addColumn("Nome"); // Add uma coluna a esse obj, ou seja add ao tablemodel
@@ -47,7 +58,7 @@ public class Cadastro extends JFrame {
         // Formato da minha tabela, parte gráfica
         table = new JTable(tableModel); // Criação de um obj de JTABLE baseado na tablemodel
         JScrollPane scrollPane = new JScrollPane(table); // Scrollbar
-
+        
         inputNome = new JTextField(20);
         inputIdade = new JTextField(5);
 
@@ -56,8 +67,9 @@ public class Cadastro extends JFrame {
         JButton apagarButton = new JButton("Apagar");
         JButton apagarTodosButton = new JButton("Apagar todos");
         JButton salvarButton = new JButton("Salvar");
+        JButton trocarButton = new JButton("Agende Aqui!");
 
-        JPanel inputPanel = new JPanel();
+        JPanel inputPanel = new JPanel();  
         inputPanel.add(new JLabel("Nome: "));
         inputPanel.add(inputNome);
         inputPanel.add(new JLabel("Idade: "));
@@ -68,11 +80,40 @@ public class Cadastro extends JFrame {
         inputPanel.add(apagarTodosButton);
         inputPanel.add(salvarButton);
 
+        
         // Add ao Layout
-        setLayout(new BorderLayout());
-        add(inputPanel, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
+        painelCadastro.setLayout(new BorderLayout());
+        painelCadastro.add(inputPanel, BorderLayout.NORTH);
+        painelCadastro.add(scrollPane, BorderLayout.CENTER);
+        painelCadastro.add(trocarButton, BorderLayout.SOUTH);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         // Preencher a tabela
         File arquivo = new File("dados.txt");
         if (arquivo.exists()) {
