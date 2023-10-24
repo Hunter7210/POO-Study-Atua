@@ -4,7 +4,7 @@ import java.util.List;
 public class Serializacao {
     // Método para serializar uma lista de usuários em um arquivo binário
     public static void serializar(String arquivo, List<Usuario> usuarios) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(arquivo))) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(arquivo))) { //Pegar a memoria e por pra fora
 
             // Escreve a lista de usuários no arquivo especificado
             outputStream.writeObject(usuarios);
@@ -19,7 +19,7 @@ public class Serializacao {
     public static List<Usuario> deserializar(String arquivo) {
         try {
             // Abre o arquivo para leitura
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(arquivo));
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(arquivo)); //Pegar a memoria e poe pra dentro
             // Lê a lista de usuários do arquivo e a converte de volta para a lista
             return (List<Usuario>) inputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {

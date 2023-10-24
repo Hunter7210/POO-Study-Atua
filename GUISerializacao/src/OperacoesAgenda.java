@@ -1,28 +1,28 @@
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.crypto.Data;
 
 import java.io.Serializable;
 
 import java.util.List;
 
 public class OperacoesAgenda {
-    private List<Usuario> usuarios;
+    private List<Usuario> agendamentos;
     private DefaultTableModel tableModel;
     private JTable table;
 
-    // Construtor
-    public OperacoesAgenda(List<Usuario> usuarios, DefaultTableModel tableModel, JTable table) {
-        // Definindo os elemetos do construtor
-        this.usuarios = usuarios;
+
+    
+    public OperacoesAgenda(List<Usuario> agendamentos, DefaultTableModel tableModel, JTable table) {
+        this.agendamentos = agendamentos;
         this.tableModel = tableModel;
         this.table = table;
     }
 
     // Metodo
-    public void cadastrarAgenda(String nome, String idade) {
-        int idadeInt = Integer.parseInt(idade);
-        Usuario usuario = new Usuario(nome, idadeInt);
-        usuarios.add(usuario);
+    public void cadastrarAgenda(String data, String hora, Usuario usuario, String descricao ) {
+        Agenda agendamento = new Agenda(data, hora, usuario, descricao);
+        agendamentos.add(agendamento);
         atualizarTabela();
     }
 
@@ -30,31 +30,31 @@ public class OperacoesAgenda {
         if (linhaSelecionada != -1) {
             int idadeInt = Integer.parseInt(idade);
             Usuario usuario = new Usuario(nome, idadeInt);
-            usuarios.set(linhaSelecionada, usuario);
+            agendamentos.set(linhaSelecionada, usuario);
             atualizarTabela();
         }
     }
 
     public void apagarAgenda(int linhaSelecionada) {
         if (linhaSelecionada != -1) {
-            usuarios.remove(linhaSelecionada);
+            agendamentos.remove(linhaSelecionada);
             atualizarTabela();
         }
     }
 
     public void apagarTodos() {
-        usuarios.clear();
+        agendamentos.clear();
         atualizarTabela();
     }
 
     public void salvarAgenda() {
-        Serializacao.serializar("dadosAgenda.txt", usuarios);
+        Serializacao.serializar("dadosAgenda.txt", agendamentos);
     }
 
     public void atualizarTabela() {
         tableModel.setRowCount(0);
-        for (Usuario usuario : usuarios) {
-            tableModel.addRow(new Object[] { usuario.getNome(), usuario.getIdade() });
+        for (Agenda agendamento : agendamentos) {
+            tableModel.addRow(new Object[] { agendamentos.getNome(), agendamentos.getIdade() });
         }
     }
 

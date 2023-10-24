@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
 
 import java.io.File;
 
-public class Cadastro extends JFrame {
+public class Cadastro extends JPanel {
     // Atributos
     private JPanel painelMain;
     private JPanel painelCadastro;
@@ -34,10 +34,7 @@ public class Cadastro extends JFrame {
     // Construtor
     public Cadastro() {
         // Configurações do JFrame
-        setTitle("Cadastro de Usuários");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         this.setVisible(true);
 
         painelMain = new JPanel();
@@ -86,31 +83,6 @@ public class Cadastro extends JFrame {
         painelCadastro.add(inputPanel, BorderLayout.NORTH);
         painelCadastro.add(scrollPane, BorderLayout.CENTER);
         painelCadastro.add(trocarButton, BorderLayout.SOUTH);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         
