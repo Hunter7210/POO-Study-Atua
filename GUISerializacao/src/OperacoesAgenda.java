@@ -20,8 +20,8 @@ public class OperacoesAgenda {
     }
 
     // Metodo
-    public void cadastrarAgenda(String data, String hora, Usuario usuario, String descricao ) {
-        Agenda agendamento = new Agenda(data, hora, usuario, descricao);
+    public void cadastrarAgenda(String data, String hora, String usuarios, String descricao ) {
+        Agenda agendamento = new Agenda(data, hora, usuarios, descricao);
         agendamentos.add(agendamento);
         atualizarTabela();
     }
