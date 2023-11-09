@@ -88,7 +88,7 @@ public class ConectionDAO {
     public void buscarPorId(int id) {
         // Define a instrução SQL parametrizada para buscar dados por ID
         String sql = "SELECT * FROM MINHA_TABELA WHERE ID = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) { // PreparedStatement
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) { // PreparedStatement NORMALMENTE É MAIS SEGURO DO QUE O Statement
             stmt.setInt(1, id);
 
             ResultSet resultSet = stmt.executeQuery(); // Executa a consulta e obtém resultados
