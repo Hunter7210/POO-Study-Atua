@@ -55,8 +55,8 @@ public class CarrosPainel extends JPanel {
         inputPanel.add(new JLabel("Ano"));
 
         carAnoField = new JTextField(20);
-
         inputPanel.add(carAnoField);
+        
         inputPanel.add(new JLabel("Placa"));
 
         carPlacaField = new JTextField(20);

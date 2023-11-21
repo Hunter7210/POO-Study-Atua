@@ -71,9 +71,75 @@ public class ClientesDAO { // Responsável pela injeção de SQL
         return clientes; // Retorna a lista para o banco de dados
     }
 
-    //Cadastrar Clientes no banco de dados
-    public void cadastrar(String ) {
-        
+    // Cadastrar Clientes no banco de dados
+    public void cadastrar(String nome, String endereco, String numTel, String cpf, String dataNasc) {
+        PreparedStatement stmt = null;
+        // Define a instrução SQL parametrizada para cadastrar na tabela
+        String query = "INSERT INTO clientes_lojacarros (nome, endereco, numTel, cpf, dataNasc) VALUES (?,?,?,?,?)";
+
+        try {
+            // Preparando a consulta para a injeção
+            stmt = connection.prepareStatement(query);
+
+            stmt.setString(1, nome);
+            stmt.setString(2, endereco);
+            stmt.setString(3, numTel);
+            stmt.setString(4, cpf);
+            stmt.setString(5, dataNasc);
+
+            // Executa a consulta
+            stmt.executeUpdate();
+            System.out.println("Dados inseridos com sucesso");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao inserir dados no banco", e);
+        } finally {
+            ConnectionFactory.closeConnection(connection, stmt);
+            // Fecha a conexão e o PreparedStatement
+        }
     }
 
+    public void atualizar(String nome, String endereco, String numTel, String cpf, String dataNasc) {
+        PreparedStatement stmt = null;
+        // Define a instrução SQL parametrizada para atualizar dados pela placa
+        String query = "UPDATE clientes_lojacarros SET nome= ?, endereco= ?, numTel = ?, dataNasc = ? WHERE cpf = ?"; // CPF
+                                                                                                                      // =
+                                                                                                                      // PRIMARY
+                                                                                                                      // KEY
+
+        try {
+            stmt = connection.prepareStatement(query);
+
+            stmt.setString(1, nome);
+            stmt.setString(2, endereco);
+            stmt.setString(3, numTel);
+            /* stmt.setString(4, cpf); Não pode ser alterado */
+            stmt.setString(5, dataNasc);
+            stmt.executeUpdate();
+            System.out.println("Dados atualizados com sucesso");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar dados no banco de dados.", e);
+
+        } finally {
+            ConnectionFactory.closeConnection(connection, stmt);
+        }
+    }
+
+    public void apagar(String cpf) {
+        PreparedStatement stmt = null;
+
+        String query = "DELETE FROM clientes_lojacarros WHERE cpf= ?";
+
+        try {
+            stmt = connection.prepareStatement(query);
+
+            stmt.setString(1, cpf);
+            stmt.executeUpdate();
+            System.out.println("Dados apagado com sucesso");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao apagar dados no banco de dados.", e);
+        }
+        ConnectionFactory.closeConnection(connection, stmt);
+    }
 }
