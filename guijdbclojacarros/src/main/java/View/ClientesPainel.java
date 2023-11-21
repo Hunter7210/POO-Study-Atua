@@ -81,7 +81,7 @@ public class ClientesPainel extends JPanel {
 
         // Criação e desging da tabela
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "Marca", "Modelo", "Ano", "Placa", "Valor" });
+                new String[] { "Nome", "Data Nascimento", "CPF", "Telefone", "Endereço" });
         tableClien = new JTable(tableModel);
         jSPane.setViewportView(tableClien);
 
