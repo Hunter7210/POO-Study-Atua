@@ -23,8 +23,8 @@ public class VendasView extends JPanel {
     private JComboBox<String> clienteComboBox;
     private List<Clientes> clientes;
 
-    private JTable table;
-    private DefaultTableModel tableModel;
+    private JTable tableClient;
+    private DefaultTableModel tableModelClient;
     private int linhaSelecionada = -1; // Valor para quando não selecionar nada
 
 
@@ -52,8 +52,8 @@ public class VendasView extends JPanel {
             carrosComboBox.addItem(carro.getMarca() + "" + carro.getModelo() + "" + carro.getPlaca());
         }
 
-        for (Carros carro : carros) {
-            carrosComboBox.addItem(carro.getMarca() + "" + carro.getModelo() + "" + carro.getPlaca());
+        for (Clientes cliente : clientes) {
+            clienteComboBox.addItem(cliente.getNome() + "" + cliente.getCpf());
         }
 
         //Adiciona os componentes
@@ -75,10 +75,10 @@ public class VendasView extends JPanel {
         JScrollPane jSPane = new JScrollPane();
         add(jSPane);
 
-        tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "Marca", "Modelo", "Ano", "Placa", "Valor" });
-        table = new JTable(tableModel);
-        jSPane.setViewportView(table);
+        tableModelClient = new DefaultTableModel(new Object[][] {},
+                new String[] { "Nome", "Data Nascimento", "CPF", "Telefone", "Endereço" });
+        tableClient = new JTable(tableModelClient);
+        jSPane.setViewportView(tableClient);
     }
 
 }
