@@ -9,7 +9,7 @@ import Connection.CarrosDAO;
 import Model.Carros;
 import javafx.scene.input.MouseEvent;
 
-public class CarrosConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
+public class ClientesConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
 
     // Atributos
     private List<Carros> carros;
@@ -17,7 +17,7 @@ public class CarrosConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
     private JTable table;
 
     // Construtor
-    public CarrosConstrol(List<Carros> carros, DefaultTableModel tableModel, JTable table) {
+    public ClientesConstrol(List<Carros> carros, DefaultTableModel tableModel, JTable table) {
         this.carros = carros;
         this.tableModel = tableModel;
         this.table = table;
@@ -59,3 +59,4 @@ public class CarrosConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
         atualizarTabela(); // Atualiza a tabela de exibição após a exclusão
     }
 }
+

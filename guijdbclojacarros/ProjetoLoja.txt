@@ -1,0 +1,7 @@
+Projeto Loja de carros:
+
+-Resolver os erros encontrados no codigo, tratamentos de evnetos(
+    ERROS:
+        * No cadastro é possivel realizar a entrada de dados com letras onde só deve ser possivel entrar texto
+        * Cadastrar
+)
