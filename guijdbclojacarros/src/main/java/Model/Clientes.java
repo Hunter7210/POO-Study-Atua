@@ -4,17 +4,17 @@ public class Clientes {
     //Atributos
     public String nome;
     public String endereco;
-    public String num_tel;
+    public String numTel;
     public String cpf;
-    public String data_nasc;
+    public String dataNasc;
 
-    public Clientes(String nome, String endereco, String num_tel, String cpf, String data_nascString) {
+    public Clientes(String nome, String endereco, String numTel, String cpf, String dataNasc) {
 
         this.nome = nome;
         this.endereco = endereco;
-        this.num_tel = num_tel;
+        this.numTel = numTel;
         this.cpf = cpf;
-        this.data_nasc = data_nasc;
+        this.dataNasc = dataNasc;
     }
 
     public String getNome() {
@@ -33,12 +33,12 @@ public class Clientes {
         this.endereco = endereco;
     }
 
-    public String getNum_tel() {
-        return num_tel;
+    public String getNumTel() {
+        return numTel;
     }
 
-    public void setNum_tel(String num_tel) {
-        this.num_tel = num_tel;
+    public void setNumTel(String numTel) {
+        this.numTel = numTel;
     }
 
     public String getCpf() {
@@ -49,15 +49,17 @@ public class Clientes {
         this.cpf = cpf;
     }
 
-    public String getData_nasc() {
-        return data_nasc;
+    public String getDataNasc() {
+        return dataNasc;
     }
 
-    public void setData_nasc(String data_nasc) {
-        this.data_nasc = data_nasc;
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
     //Getters and setters
-
+    public Clientes() {
+        super();
+    }
     
 }
