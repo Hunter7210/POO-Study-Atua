@@ -27,15 +27,16 @@ public class ClientesConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
     private void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
         clientes = new ClientesDAO().listarClientes();
-        // Obtém os carros atualizados do banco de dados
+        // Obtém os clientes atualizados do banco de dados
         for (Clientes cliente : clientes) {
-            // Adiciona os dados de cada carro como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome() , cliente.getEndereco() , cliente.getCpf() ,cliente.getDataNasc() , cliente.getNumTel() });
+            // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
+            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(), cliente.getNumTel(), cliente.getCpf(), cliente.getDataNasc()});
         }
     }
 
     // Método para cadastrar um novo cliente no banco de dados
     public void cadastrar (String nome, String endereco,  String numTel, String cpf, String dataNasc){
+        new ClientesDAO().cadastrar(nome, endereco, numTel, cpf, dataNasc);
         // Chama o método de cadastro no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após o cadastro
 

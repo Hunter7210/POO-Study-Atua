@@ -23,7 +23,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
 
     // Metodo para Criação da tabela de conexão
     public void criarTabela() {
-        String query = "CREATE TABLE IF NOT EXISTS clientes_lojacarros (nome VARCHAR(255), endereco VARCHAR(255), numTel VARCHAR(255), cpf VARCHAR(255) PRIMARY KEY, dataNasci VARCHAR(255))";
+        String query = "CREATE TABLE IF NOT EXISTS clientes_lojacarros (nome VARCHAR(255), endereco VARCHAR(255), numTel VARCHAR(255), cpf VARCHAR(255) PRIMARY KEY, dataNasc VARCHAR(255));";
 
         try (Statement stmt = this.connection.createStatement()) {
             stmt.execute(query);
@@ -46,9 +46,10 @@ public class ClientesDAO { // Responsável pela injeção de SQL
         clientes = new ArrayList<>();
         // Cria uma lista para armazenar os carros recuperados do banco de dados
         try {
-            String query = "SELECT * FROM clientes_lojacarros";
-            stmt = connection.prepareStatement(query);
+            String query = "SELECT * FROM clientes_lojacarros;";
             // Prepara a consulta SQL para selecionar todos os registros da tabela
+            stmt = connection.prepareStatement(query);
+            // Resultado
             rs = stmt.executeQuery();
             // Executa a consulta e armazena os resultados no ResultSet
             while (rs.next()) {
@@ -56,10 +57,10 @@ public class ClientesDAO { // Responsável pela injeção de SQL
                 // registro
                 Clientes cliente = new Clientes(
                         rs.getString("nome"),
-                        rs.getString("Endereco"),
+                        rs.getString("endereco"),
                         rs.getString("numTel"),
                         rs.getString("cpf"),
-                        rs.getString("dataNasci"));
+                        rs.getString("dataNasc"));
                 clientes.add(cliente); // Add o objeto com todos os dados nele
             }
         } catch (SQLException ex) {
@@ -75,12 +76,11 @@ public class ClientesDAO { // Responsável pela injeção de SQL
     public void cadastrar(String nome, String endereco, String numTel, String cpf, String dataNasc) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para cadastrar na tabela
-        String query = "INSERT INTO clientes_lojacarros (nome, endereco, numTel, cpf, dataNasc) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO clientes_lojacarros (nome, endereco, numTel, cpf, dataNasc) VALUES (?, ?, ?, ?, ?)";
 
         try {
             // Preparando a consulta para a injeção
             stmt = connection.prepareStatement(query);
-
             stmt.setString(1, nome);
             stmt.setString(2, endereco);
             stmt.setString(3, numTel);
@@ -90,6 +90,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
             // Executa a consulta
             stmt.executeUpdate();
             System.out.println("Dados inseridos com sucesso");
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir dados no banco", e);
         } finally {
@@ -101,10 +102,9 @@ public class ClientesDAO { // Responsável pela injeção de SQL
     public void atualizar(String nome, String endereco, String numTel, String cpf, String dataNasc) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para atualizar dados pela placa
-        String query = "UPDATE clientes_lojacarros SET nome= ?, endereco= ?, numTel = ?, dataNasc = ? WHERE cpf = ?"; // CPF
-                                                                                                                      // =
-                                                                                                                      // PRIMARY
-                                                                                                                      // KEY
+        String query = "UPDATE clientes_lojacarros SET nome= ?, endereco= ?, numTel = ?, dataNasc = ? WHERE cpf = ?;"; // CPF
+                                                                                                                       // primary
+                                                                                                                       // key
 
         try {
             stmt = connection.prepareStatement(query);
@@ -128,7 +128,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
     public void apagar(String cpf) {
         PreparedStatement stmt = null;
 
-        String query = "DELETE FROM clientes_lojacarros WHERE cpf= ?";
+        String query = "DELETE FROM clientes_lojacarros WHERE cpf= ?;";
 
         try {
             stmt = connection.prepareStatement(query);

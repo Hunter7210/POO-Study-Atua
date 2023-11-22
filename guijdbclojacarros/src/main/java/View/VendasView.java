@@ -7,25 +7,30 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.DefaultTableModel;
 
 import Connection.CarrosDAO;
 import Connection.ClientesDAO;
+import Connection.VendasDAO;
+import Controler.VendasControl;
 import Model.Carros;
 import Model.Clientes;
+import Model.Vendas;
+import javafx.scene.input.MouseEvent;
 
 public class VendasView extends JPanel {
 
     private JComboBox<String> carrosComboBox;
     private List<Carros> carros;
-    private JButton enviar, limpar, historico;
+    private JButton enviar, limpar;
+    private List<Vendas> vendas;
     private JComboBox<String> clienteComboBox;
     private List<Clientes> clientes;
 
-    private JTable tableClient;
-    private DefaultTableModel tableModelClient;
+    private JTable tableVend;
+    private DefaultTableModel tableModelVend;
     private int linhaSelecionada = -1; // Valor para quando não selecionar nada
-
 
     public VendasView() {
         super();
@@ -45,8 +50,8 @@ public class VendasView extends JPanel {
         // Clientes
         clientes = new ClientesDAO().listarClientes();
         clienteComboBox.addItem("Selecionar o cliente");
-        
-        //Preenche o comboBox 
+
+        // Preenche o comboBox
         for (Carros carro : carros) {
             carrosComboBox.addItem(carro.getMarca() + "\t" + carro.getModelo() + "\t" + carro.getPlaca());
         }
@@ -55,43 +60,66 @@ public class VendasView extends JPanel {
             clienteComboBox.addItem(cliente.getNome() + "\t" + cliente.getCpf());
         }
 
-        //Adiciona os componentes
+        // Adiciona os componentes
         painelPrinc.add(carrosComboBox);
         painelPrinc.add(clienteComboBox);
 
-        //Criação de um painel para conter os botoes
+        // Criação de um painel para conter os botoes
         JPanel botoes = new JPanel();
-        enviar = new JButton("Comprar");
-        historico = new JButton("Histórico");
+        enviar = new JButton("Cadastrar Venda");
+        
         limpar = new JButton("Limpar");
         painelPrinc.add(botoes);
 
         botoes.add(enviar);
         botoes.add(limpar);
-        botoes.add(historico);
 
-         // tabela de carros
+
+        // tabela de carros
         JScrollPane jSPane = new JScrollPane();
         add(jSPane);
 
-        tableModelClient = new DefaultTableModel(new Object[][] {},
-                new String[] { "Nome", "Data Nascimento", "CPF", "Telefone", "Endereço" });
-        tableClient = new JTable(tableModelClient);
-        jSPane.setViewportView(tableClient);
+        tableModelVend = new DefaultTableModel(new Object[][] {},
+                new String[] { "Data Venda", "Cliente", "Carro Vendido", "Valor" });
+        tableVend = new JTable(tableModelVend);
+        jSPane.setViewportView(tableVend);
 
+        // Criar tabela vendas
+        new VendasDAO().criarTabela();
 
+        // Atualizar os dados da tabela
+        atualizarTabela();
 
-        //Tratameno de eventos 
+        // Evento para pegar a linha selecionada atraves do Mouse
+       
+        // Instanciando um obj da classe VendasConstrol
+        VendasControl operacoesVenda = new VendasControl(vendas, tableModelVend, tableVend);
 
+        enviar.addActionListener(e-> {
+            carrosComboBox.getSelectedIndex();
+        });
 
-        //Criar um VendasDAO para armazenar as funções para meus botoes,
-        //Enviar= Inserir ao banco de dados e ao mesmo tempo excluir o carro comprado, mas manter no historico
-        //Histórico = Mostrar todos os dados já inseridos dos carros
-        //Limpar= limpar os campos, voltar o default. Exemplo: Os comboBoxs voltarem para a primeria linha  
+        // Tratameno de eventos
+
+        // Criar um VendasDAO para armazenar as funções para meus botoes,
+        // Enviar= Inserir ao banco de dados e ao mesmo tempo excluir o carro comprado,
+        // mas manter no historico
+        // Histórico = Mostrar todos os dados já inseridos dos carros
+        // Limpar= limpar os campos, voltar o default. Exemplo: Os comboBoxs voltarem
+        // para a primeria linha
 
     }
 
-
-
+    // Método para atualizar a tabela de exibição com dados do banco de dados
+    private void atualizarTabela() {
+        tableModelVend.setRowCount(0); // Limpa todas as linhas existentes na tabela
+        clientes = new ClientesDAO().listarClientes();
+        // Obtém os carros atualizados do banco de dados
+        for (Clientes cliente : clientes) {
+            // Adiciona os dados de cada carro como uma nova linha na tabela Swing
+            tableModelVend.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(), cliente.getNumTel(),
+                    cliente.getCpf(), cliente.getDataNasc() });
+        }
+    }
 
 }
