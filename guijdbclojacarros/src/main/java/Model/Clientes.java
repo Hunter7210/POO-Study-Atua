@@ -8,6 +8,7 @@ public class Clientes {
     public String cpf;
     public String dataNasc;
 
+    //Construtor
     public Clientes(String nome, String endereco, String numTel, String cpf, String dataNasc) {
 
         this.nome = nome;
@@ -17,6 +18,7 @@ public class Clientes {
         this.dataNasc = dataNasc;
     }
 
+    //Getters and setters
     public String getNome() {
         return nome;
     }
@@ -57,7 +59,7 @@ public class Clientes {
         this.dataNasc = dataNasc;
     }
 
-    //Getters and setters
+    //Construtor default
     public Clientes() {
         super();
     }

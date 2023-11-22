@@ -19,7 +19,7 @@ public class Carros {
     }
 
 
-     //Getters and setters
+    //Getters and setters
 
     public String getMarca() {
         return marca;
@@ -62,7 +62,7 @@ public class Carros {
     }
 
 
-    //sConstructor default
+    //Constructor default
     public Carros() {
         super();
     }
