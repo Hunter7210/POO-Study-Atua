@@ -85,9 +85,9 @@ public class ClientesPainel extends JPanel {
         tableClien = new JTable(tableModel);
         jSPane.setViewportView(tableClien);
 
-        // Tratamento de evnetos
+        // Tratamento de eventos
 
-        
+
 
     }
 

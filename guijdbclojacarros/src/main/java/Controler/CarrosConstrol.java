@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 
 import Connection.CarrosDAO;
 import Model.Carros;
-import javafx.scene.input.MouseEvent;
 
 public class CarrosConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
 

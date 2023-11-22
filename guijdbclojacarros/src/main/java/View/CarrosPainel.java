@@ -248,6 +248,8 @@ public class CarrosPainel extends JPanel {
                 carValorField.setText("");
                 // Fecha somente o JOptionPane
                 System.exit(0);
+
+                JOptionPane.showMessageDialog(limpar, "Campos limpos com sucesso!");
             } else {
                 // Fecha somente o JOptionPane
                 System.exit(0);
