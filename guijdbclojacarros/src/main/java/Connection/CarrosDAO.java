@@ -22,9 +22,9 @@ public class CarrosDAO { // ELE FAZ INSERÇÃO DO MY SQL
 
     // criar Tabela
     public void criaTabela() {
-        String sql = "CREATE TABLE IF NOT EXISTS carros_lojacarros (MARCA VARCHAR(255),MODELO VARCHAR(255),ANO VARCHAR(255),PLACA VARCHAR(255) PRIMARY KEY, VALOR VARCHAR(255))";
+        String query = "CREATE TABLE IF NOT EXISTS carros_lojacarros (MARCA VARCHAR(255),MODELO VARCHAR(255),ANO VARCHAR(255),PLACA VARCHAR(255) PRIMARY KEY, VALOR VARCHAR(255))";
         try (Statement stmt = this.connection.createStatement()) {
-            stmt.execute(sql);
+            stmt.execute(query);
             System.out.println("Tabela criada com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao criar a tabela: " + e.getMessage(), e);
@@ -42,8 +42,8 @@ public class CarrosDAO { // ELE FAZ INSERÇÃO DO MY SQL
         carros = new ArrayList<>();
         // Cria uma lista para armazenar os carros recuperados do banco de dados
         try {
-            String sql = "SELECT * FROM carros_lojacarros";
-            stmt = connection.prepareStatement(sql);
+            String query = "SELECT * FROM carros_lojacarros";
+            stmt = connection.prepareStatement(query);
             // Prepara a consulta SQL para selecionar todos os registros da tabela
             rs = stmt.executeQuery();
             // Executa a consulta e armazena os resultados no ResultSet
@@ -71,10 +71,10 @@ public class CarrosDAO { // ELE FAZ INSERÇÃO DO MY SQL
     public void cadastrar(String marca, String modelo, String ano, String placa, String valor) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para cadastrar na tabela
-        String sql = "INSERT INTO carros_lojacarros (marca, modelo, ano, placa, valor) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO carros_lojacarros (marca, modelo, ano, placa, valor) VALUES (?, ?, ?, ?, ?)";
         
         try {
-            stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(query);
 
             stmt.setString(1, marca);
             stmt.setString(2, modelo);
@@ -96,10 +96,10 @@ public class CarrosDAO { // ELE FAZ INSERÇÃO DO MY SQL
     public void atualizar(String marca, String modelo, String ano, String placa, String valor) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para atualizar dados pela placa
-        String sql = "UPDATE carros_lojacarros SET marca = ?, modelo = ?, ano = ?, valor = ? WHERE placa = ?"; //Placa é a minha chave primária //A ordem não importa, o que realmente importa é a ordem dos pontos de interrogação em relação a ordem no inferior
+        String query = "UPDATE carros_lojacarros SET marca = ?, modelo = ?, ano = ?, valor = ? WHERE placa = ?"; //Placa é a minha chave primária //A ordem não importa, o que realmente importa é a ordem dos pontos de interrogação em relação a ordem no inferior
         
         try {
-            stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(query);
             stmt.setString(1, marca);
             stmt.setString(2, modelo);
             stmt.setString(3, ano);
@@ -121,18 +121,16 @@ public class CarrosDAO { // ELE FAZ INSERÇÃO DO MY SQL
     public void apagar(String placa) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para apagar dados pela placa
-        String sql = "DELETE FROM carros_lojacarros WHERE placa = ?";
+        String query = "DELETE FROM carros_lojacarros WHERE placa = ?";
         
         try {
-            stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(query);
             stmt.setString(1, placa);
             stmt.executeUpdate(); // Executa a instrução SQL
             System.out.println("Dado apagado com sucesso");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao apagar dados no banco de dados.", e);
-        } finally {
-
-        }
+        } 
         ConnectionFactory.closeConnection(connection, stmt);
     }
 }

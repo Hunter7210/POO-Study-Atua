@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -44,16 +43,16 @@ public class VendasView extends JPanel {
         carros = new CarrosDAO().listarTodos();
         carrosComboBox.addItem("Selecionar o carro");
         // Clientes
-        clientes = new ClientesDAO().lisarClientes();
+        clientes = new ClientesDAO().listarClientes();
         clienteComboBox.addItem("Selecionar o cliente");
         
         //Preenche o comboBox 
         for (Carros carro : carros) {
-            carrosComboBox.addItem(carro.getMarca() + "" + carro.getModelo() + "" + carro.getPlaca());
+            carrosComboBox.addItem(carro.getMarca() + "\t" + carro.getModelo() + "\t" + carro.getPlaca());
         }
 
         for (Clientes cliente : clientes) {
-            clienteComboBox.addItem(cliente.getNome() + "" + cliente.getCpf());
+            clienteComboBox.addItem(cliente.getNome() + "\t" + cliente.getCpf());
         }
 
         //Adiciona os componentes
@@ -62,10 +61,10 @@ public class VendasView extends JPanel {
 
         //Criação de um painel para conter os botoes
         JPanel botoes = new JPanel();
-        painelPrinc.add(botoes);
         enviar = new JButton("Comprar");
         historico = new JButton("Histórico");
         limpar = new JButton("Limpar");
+        painelPrinc.add(botoes);
 
         botoes.add(enviar);
         botoes.add(limpar);
@@ -79,6 +78,20 @@ public class VendasView extends JPanel {
                 new String[] { "Nome", "Data Nascimento", "CPF", "Telefone", "Endereço" });
         tableClient = new JTable(tableModelClient);
         jSPane.setViewportView(tableClient);
+
+
+
+        //Tratameno de eventos 
+
+
+        //Criar um VendasDAO para armazenar as funções para meus botoes,
+        //Enviar= Inserir ao banco de dados e ao mesmo tempo excluir o carro comprado, mas manter no historico
+        //Histórico = Mostrar todos os dados já inseridos dos carros
+        //Limpar= limpar os campos, voltar o default. Exemplo: Os comboBoxs voltarem para a primeria linha  
+
     }
+
+
+
 
 }

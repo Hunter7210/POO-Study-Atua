@@ -37,7 +37,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
     }
 
     // Lista de todos os valores cadastrados
-    public List<Clientes> lisarClientes() {
+    public List<Clientes> listarClientes() {
         PreparedStatement stmt = null;
         // Declaração do objeto PreparedStatement para executar a consulta
         ResultSet rs = null;

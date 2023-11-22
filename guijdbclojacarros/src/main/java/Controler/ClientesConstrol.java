@@ -5,11 +5,8 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Connection.CarrosDAO;
 import Connection.ClientesDAO;
-import Model.Carros;
 import Model.Clientes;
-import javafx.scene.input.MouseEvent;
 
 public class ClientesConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
 
@@ -29,34 +26,31 @@ public class ClientesConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
     // Método para atualizar a tabela de exibição com dados do banco de dados
     private void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
-        clientes = new ClientesDAO().lisarClientes();
+        clientes = new ClientesDAO().listarClientes();
         // Obtém os carros atualizados do banco de dados
         for (Clientes cliente : clientes) {
             // Adiciona os dados de cada carro como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { carro.getMarca(), carro.getModelo(),
-
-                    carro.getAno(), carro.getPlaca(), carro.getValor() });
+            tableModel.addRow(new Object[] { cliente.getNome() , cliente.getEndereco() , cliente.getCpf() ,cliente.getDataNasc() , cliente.getNumTel() });
         }
     }
 
-    // Método para cadastrar um novo carro no banco de dados
-    public void cadastrar(String marca, String modelo, String ano, String placa, String valor) {
-        new ClientesDAO().cadastrar(ano, modelo, placa, valor, ano);).
+    // Método para cadastrar um novo cliente no banco de dados
+    public void cadastrar (String nome, String endereco,  String numTel, String cpf, String dataNasc){
         // Chama o método de cadastro no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após o cadastro
 
     }
 
-    // Método para atualizar os dados de um carro no banco de dados
-    public void atualizar(String marca, String modelo, String ano, String placa, String valor) {
-        new ClientesDAO().atualizar(marca, modelo, ano, placa, valor);
+    // Método para atualizar os dados de um cliente no banco de dados
+    public void atualizar(String nome, String endereco,  String numTel, String cpf, String dataNasc) {
+        new ClientesDAO().atualizar(nome, endereco, numTel, cpf, dataNasc);
         // Chama o método de atualização no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a atualização
     }
 
-    // Método para apagar um carro do banco de dados
-    public void apagar(String placa) { //Placa é a minha chave primária
-        new ClientesDAO().apagar(placa);
+    // Método para apagar um cliente do banco de dados
+    public void apagar(String cpf) { //Placa é a minha chave primária
+        new ClientesDAO().apagar(cpf);
         // Chama o método de exclusão no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a exclusão
     }

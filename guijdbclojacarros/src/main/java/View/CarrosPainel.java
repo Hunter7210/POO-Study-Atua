@@ -105,24 +105,20 @@ public class CarrosPainel extends JPanel {
             }
         });
 
+        // Tratamento de eventos
+
         // Cria um objeto operacoes da classe CarrosControl para executar operações no
-        // banco de dados
+        // banco
         CarrosConstrol operacoes = new CarrosConstrol(carros, tableModel, table);
 
         // Configura a ação do botão "cadastrar" para adicionar um novo registro no
         // banco de dados
         cadastrar.addActionListener(e -> {
-            // Tratamento de evnetos
-            /*
-             * FAZER UMA CAIXA DE CONFIRMAÇÃO, SE O USUARIO DESEJA REALMENTE SE CADASTRAR,
-             * APLICAR ALTERAÇÕES, EXCLUIR, LIMPAR ETC
-             * 
-             */
 
             // Verifica se todos os campos estão preenchidos
-            if (!carMarcaField.getText().isEmpty() || carAnoField.getText().isEmpty()
-                    || carModeloField.getText().isEmpty() || carPlacaField.getText().isEmpty()
-                    || carValorField.getText().isEmpty()) {
+            if (!carMarcaField.getText().isEmpty() || !carAnoField.getText().isEmpty()
+                    || !carModeloField.getText().isEmpty() || !carPlacaField.getText().isEmpty()
+                    || !carValorField.getText().isEmpty()) {
 
                 // Pergunta se o usuario quer realmente se cadastrar
                 int podCadast = JOptionPane.showConfirmDialog(cadastrar, "Tem certeza que deseja cadastrar?",
@@ -237,7 +233,7 @@ public class CarrosPainel extends JPanel {
         });
 
         limpar.addActionListener(e -> {
-            int desejLimp = JOptionPane.showConfirmDialog(apagar, "Deseja realmente limpar os dados nos campos?",
+            int desejLimp = JOptionPane.showConfirmDialog(limpar, "Deseja realmente limpar os dados nos campos?",
                     "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
             if (desejLimp == JOptionPane.YES_OPTION) {
                 // Limpa todos os campos
