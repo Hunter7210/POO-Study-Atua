@@ -3,23 +3,18 @@ package View;
 import java.util.List;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.ActiveEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
-import org.postgresql.translation.messages_pt_BR;
 
 import Connection.CarrosDAO;
 import Controler.CarrosConstrol;
