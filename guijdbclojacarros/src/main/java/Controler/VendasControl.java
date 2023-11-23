@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Connection.ClientesDAO;
 import Connection.VendasDAO;
 import Model.Vendas;
 

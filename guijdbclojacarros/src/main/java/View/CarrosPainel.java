@@ -110,12 +110,54 @@ public class CarrosPainel extends JPanel {
 
         // Configura a ação do botão "cadastrar" para adicionar um novo registro no
         // banco de dados
-      
+        // Tratamento de eventos
+        cadastrar.addActionListener(e -> {
+            // Verifica se todos os campos estão preenchidos
+            if (!carMarcaField.getText().isEmpty() || !carModeloField.getText().isEmpty()
+                    || !carAnoField.getText().isEmpty()
+                    || !carPlacaField.getText().isEmpty() || !carValorField.getText().isEmpty()) {
+
+                // Pergunta se o usuario quer realmente se cadastrar
+                int podCadast = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cadastrar o cliente?",
+                        "Escolha uma opção", JOptionPane.YES_NO_OPTION);
+                // Verifica se a escolha foi YES
+                if (podCadast == JOptionPane.YES_OPTION) {
+
+                    operacoes.cadastrar(carMarcaField.getText(), carModeloField.getText(), carAnoField.getText(),
+                            carPlacaField.getText(), carValorField.getText());
+                    // Limpa os campos de entrada após a operação de cadastro
+                    carMarcaField.setText("");
+                    carModeloField.setText("");
+                    carAnoField.setText("");
+                    carPlacaField.setText("");
+                    carValorField.setText("");
+                    // Retorna ao usuario que foi cadastrado
+                    JOptionPane.showMessageDialog(this, "Carro cadastrado com sucesso!");
+                } else {
+                    // Se a escolha for != de YES
+                    // Busca uma segunda confirmação
+                    int desejReturn = JOptionPane.showConfirmDialog(this, "Deseja retornar ao cadastro?",
+                            "Escolha uma opção", JOptionPane.YES_NO_OPTION);
+                    if (desejReturn == JOptionPane.YES_OPTION) {
+                        // Fecha o JOptionPane automaticamente
+
+                    } else {
+                        carMarcaField.setText("");
+                        carModeloField.setText("");
+                        carAnoField.setText("");
+                        carPlacaField.setText("");
+                        carValorField.setText("");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+            }
+        });
 
         // Configura a ação do botão "editar" para atualizar um registro no banco de
         // dados
         editar.addActionListener(e -> {
-            if (!carMarcaField.getText().isEmpty() || !carAnoField.getText().isEmpty()
+            if (!carMarcaField.getText().isEmpty() || carAnoField.getText().isEmpty()
                     || !carModeloField.getText().isEmpty() || !carPlacaField.getText().isEmpty()
                     || !carValorField.getText().isEmpty()) {
                 // Confirmação se deseja realmente atualizar os dados

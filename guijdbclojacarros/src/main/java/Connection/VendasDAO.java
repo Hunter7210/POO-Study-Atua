@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Carros;
-import Model.Clientes;
 import Model.Vendas;
 
 public class VendasDAO {
@@ -24,7 +22,7 @@ public class VendasDAO {
 
     // Criação da tabela
     public void criarTabela() {
-        String query = "CREATE TABLE IF NOT EXISTS vendas_lojacarros (dataVenda date, cliente VARCHAR(255) FOREIGN KEY REFERENCES clientes_lojacarros(cpf), carroVend VARCHAR(255) FOREIGN KEY REFERENCES carros_lojacarros, valorCompra VARCHAR(255), PRIMARY KEY(dataVenda));";
+        String query = "CREATE TABLE IF NOT EXISTS vendas_lojacarros (dataVenda date, cliente VARCHAR(255), FOREIGN KEY (cliente) REFERENCES clientes_lojacarros(cpf), carroVend VARCHAR(255), FOREIGN KEY(carroVend) REFERENCES carros_lojacarros, valorCompra VARCHAR(255), PRIMARY KEY(dataVenda));";
 
         try (Statement stmt = this.connection.createStatement()) {
             stmt.execute(query);
@@ -77,7 +75,7 @@ public class VendasDAO {
     public void cadastrar(String dataVenda, String carroVendi, String cliente, String valorCompra) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para cadastrar na tabela
-        String query = "INSERT INTO venda_lojacarros (dataVenda, cliente, carroVendi, valorCompra) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO vendas_lojacarros (dataVenda, cliente, carroVendi, valorCompra) VALUES (?, ?, ?, ?)";
 
         try {
             // Preparando a consulta para a injeção
