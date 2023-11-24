@@ -29,12 +29,12 @@ public class VendasControl { // Filtro de informações
         //Pega as vendas realizadas
         for (Vendas venda : vendas) {
             //Adiciona os dados a cadas venda no java swing
-            tableModel.addRow(new Object[]{ venda.getDataVenda(), venda.getCliente(), venda.getCarroVendi(), venda.getValorCompra()});
+            tableModel.addRow(new Object[]{ venda.getDataVenda(), venda.getCarroVendi(), venda.getCliente(),venda.getValorCompra()});
         }
     }
 
     // Método para cadastrar uma nova venda no banco de dados
-    public void cadastrar (String dataVenda, String carroVendi, String cliente, String valorCompra){
+    public void cadastrar(String dataVenda, String carroVendi, String cliente, String valorCompra){
         new VendasDAO().cadastrar(dataVenda, carroVendi, cliente, valorCompra);
         // Chama o método de cadastro no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após o cadastro

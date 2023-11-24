@@ -154,8 +154,7 @@ public class CarrosPainel extends JPanel {
             }
         });
 
-        // Configura a ação do botão "editar" para atualizar um registro no banco de
-        // dados
+        // Configura a ação do botão "editar" para atualizar um registro no banco de dados
         editar.addActionListener(e -> {
             if (!carMarcaField.getText().isEmpty() || carAnoField.getText().isEmpty()
                     || !carModeloField.getText().isEmpty() || !carPlacaField.getText().isEmpty()
@@ -164,11 +163,11 @@ public class CarrosPainel extends JPanel {
                 int podAtualizar = JOptionPane.showConfirmDialog(editar, "Deseja realmente atualizar os dados",
                         "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
                 if (podAtualizar == JOptionPane.YES_OPTION) {
-                    // Chama o método "atualizar" do objeto operacoes com os valores dos campos de
-                    // entrada
+                    // Chama o método "atualizar" do objeto operacoes com os valores dos campos de entrada
                     // Transforma os dados de anoDigitado em Inteiro
                     int anoDigitado = Integer.parseInt(carAnoField.getText());
                     // Compara se o ano está entre 1920 && 2024
+                    
                     if (anoDigitado > 1920 && anoDigitado < 2024) {
                         operacoes.atualizar(carMarcaField.getText(), carModeloField.getText(),
                                 carAnoField.getText(), carPlacaField.getText(), carValorField.getText());

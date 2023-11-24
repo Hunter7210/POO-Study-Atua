@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import Connection.ClientesDAO;
 import Controler.ClientesConstrol;
@@ -87,7 +88,7 @@ public class ClientesPainel extends JPanel {
 
         // Criação e desging da tabela
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "nome", "dataNasc", "cpf", "telefone", "endereco" });
+                new String[] { "NOME", "CPF", "DATA NASCIMENTO", "TELEFONE", "ENDEREÇO" });
         tableClien = new JTable(tableModel);
         jSPane.setViewportView(tableClien);
 
@@ -104,10 +105,10 @@ public class ClientesPainel extends JPanel {
                 linhaSelecionada = tableClien.rowAtPoint(evt.getPoint());
                 if (linhaSelecionada != -1) {
                     inputNome.setText((String) tableClien.getValueAt(linhaSelecionada, 0));
-                    inputEndereco.setText((String) tableClien.getValueAt(linhaSelecionada, 1));
-                    inputNumTel.setText((String) tableClien.getValueAt(linhaSelecionada, 2));
-                    inputCpf.setText((String) tableClien.getValueAt(linhaSelecionada, 3));
-                    inputDataNasc.setText((String) tableClien.getValueAt(linhaSelecionada, 4));
+                    inputCpf.setText((String) tableClien.getValueAt(linhaSelecionada, 1));
+                    inputDataNasc.setText((String) tableClien.getValueAt(linhaSelecionada, 2));
+                    inputNumTel.setText((String) tableClien.getValueAt(linhaSelecionada, 3));
+                    inputEndereco.setText((String) tableClien.getValueAt(linhaSelecionada, 4));
                 }
             }
         });
@@ -116,10 +117,13 @@ public class ClientesPainel extends JPanel {
         ClientesConstrol operacoesClient = new ClientesConstrol(clientes, tableModel, tableClien);
 
         // Tratamento de eventos
+
         cadastrar.addActionListener(e -> {
             // Verifica se todos os campos estão preenchidos
             if (!inputNome.getText().isEmpty() || !inputEndereco.getText().isEmpty() || !inputNumTel.getText().isEmpty()
                     || !inputCpf.getText().isEmpty() || !inputDataNasc.getText().isEmpty()) {
+
+            
 
                 // Pergunta se o usuario quer realmente se cadastrar
                 int podCadast = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cadastrar o cliente?",

@@ -102,9 +102,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
     public void atualizar(String nome, String endereco, String numTel, String cpf, String dataNasc) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para atualizar dados pela placa
-        String query = "UPDATE clientes_lojacarros SET nome= ?, endereco= ?, numTel = ?, dataNasc = ? WHERE cpf = ?;"; // CPF
-                                                                                                                       // primary
-                                                                                                                       // key
+        String query = "UPDATE clientes_lojacarros SET nome= ?, endereco= ?, numTel = ?, dataNasc = ? WHERE cpf = ?;"; // CPF primary key
 
         try {
             stmt = connection.prepareStatement(query);
@@ -112,7 +110,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
             stmt.setString(1, nome);
             stmt.setString(2, endereco);
             stmt.setString(3, numTel);
-            /* stmt.setString(4, cpf); Não pode ser alterado */
+            stmt.setString(4, cpf); /* Não pode ser alterado, pois é minha chave primaria */
             stmt.setString(5, dataNasc);
             stmt.executeUpdate();
             System.out.println("Dados atualizados com sucesso");
