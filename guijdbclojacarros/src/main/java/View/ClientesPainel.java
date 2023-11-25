@@ -18,7 +18,7 @@ import javax.swing.text.MaskFormatter;
 
 import Connection.ClientesDAO;
 import Controler.ClientesConstrol;
-
+import Controler.LimitaCaracteres;
 import Model.Clientes;
 
 public class ClientesPainel extends JPanel {
@@ -92,6 +92,14 @@ public class ClientesPainel extends JPanel {
         tableClien = new JTable(tableModel);
         jSPane.setViewportView(tableClien);
 
+        //Atribuindo o limitador de caracteres a cada um dos meus Inputs com os paramêtros de qtdCaracteres e o TipoEntrada
+        inputNome.setDocument(new LimitaCaracteres(40, LimitaCaracteres.TipoEntrada.NOME));
+        inputCpf.setDocument(new LimitaCaracteres(14, LimitaCaracteres.TipoEntrada.CPF));
+        inputDataNasc.setDocument(new LimitaCaracteres(10, LimitaCaracteres.TipoEntrada.DATANASC));
+        inputNumTel.setDocument(new LimitaCaracteres(16, LimitaCaracteres.TipoEntrada.TELEFONE));
+        inputEndereco.setDocument(new LimitaCaracteres(40, LimitaCaracteres.TipoEntrada.ENDERECO));
+
+
         // Cria o banco de dados caso não tenha sido criado
         new ClientesDAO().criarTabela();
 
@@ -117,7 +125,6 @@ public class ClientesPainel extends JPanel {
         ClientesConstrol operacoesClient = new ClientesConstrol(clientes, tableModel, tableClien);
 
         // Tratamento de eventos
-
         cadastrar.addActionListener(e -> {
             // Verifica se todos os campos estão preenchidos
             if (!inputNome.getText().isEmpty() || !inputEndereco.getText().isEmpty() || !inputNumTel.getText().isEmpty()
@@ -140,7 +147,7 @@ public class ClientesPainel extends JPanel {
                     inputCpf.setText("");
                     inputDataNasc.setText("");
                     // Retorna ao usuario que foi cadastrado
-                    JOptionPane.showMessageDialog(this, "Carro cadastrado com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!");
                 } else {
                     // Se a escolha for != de YES
                     // Busca uma segunda confirmação

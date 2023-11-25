@@ -1,11 +1,13 @@
 package View;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,6 +59,7 @@ public class VendasView extends JPanel {
         // Preenche o comboBox
         for (Carros carro : carros) {
             carrosComboBox.addItem(carro.getMarca() + " " + carro.getModelo() + " " + carro.getPlaca());
+
         }
 
         for (Clientes cliente : clientes) {
@@ -111,27 +114,48 @@ public class VendasView extends JPanel {
          * });
          */
 
+      
+        
+
+
         // Instanciando um obj da classe VendasConstrol
 
         VendasControl operacoesVend = new VendasControl(vendas, tableModelVend, tableVend);
+
         enviar.addActionListener(e -> {
-            int carroSelec = carrosComboBox.getSelectedIndex();
-            int clientSelec = clienteComboBox.getSelectedIndex();
-
-            // Pegar data e hora atual do computador
+          // Pegar data e hora atual do computador
             Date dataEHora = new Date();
-            String data = new SimpleDateFormat("dd/mm/aaaa").format(dataEHora);
-            String hora = new SimpleDateFormat("HH:mm:ss").format(dataEHora);
+            //Formatando
+            String data = new SimpleDateFormat("dd/mm").format(dataEHora);
+            String hora = new SimpleDateFormat("HH:mm:ss aaaa").format(dataEHora);
+            String horario = data + " " + hora;
 
-            String horario = data + "\n" + hora;
+            
+            //Buscando o item selecionado no comboBox
+            Object carroSelecObj = carrosComboBox.getSelectedItem();
+            Object clienteSelecObj = clienteComboBox.getSelectedItem();
 
-            operacoesVend.cadastrar(horario, carrosComboBox.getItemAt(clientSelec) ,carrosComboBox.getItemAt(clientSelec) , carrosComboBox.getItemAt(clientSelec));
+            //Transformando o item para String  
+            String carroSelecStr = carroSelecObj.toString();
+            String clienteSelecStr = clienteSelecObj.toString();
+        
+           operacoesVend.cadastrar(horario, carroSelecStr, clienteSelecStr); 
 
-            System.out.println(horario);
-
+            carrosComboBox.setSelectedIndex(0);
+            clienteComboBox.setSelectedIndex(0);
         });
-        // Tratameno de eventos
 
+        // Criando um evento para resetar os dados selecionados
+        limpar.addActionListener(e -> {
+            // Retona ao index inicial
+            carrosComboBox.setSelectedIndex(0);
+            clienteComboBox.setSelectedIndex(0);
+
+            
+           
+        });
+
+        // TAKS
         // Criar um VendasDAO para armazenar as funções para meus botoes,
         // Enviar= Inserir ao banco de dados e ao mesmo tempo excluir o carro comprado,
         // mas manter no historico

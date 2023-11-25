@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Connection.CarrosDAO;
 import Controler.CarrosConstrol;
+import Controler.LimitaCaracteres;
 import Model.Carros;
 
 public class CarrosPainel extends JPanel {
@@ -84,6 +85,16 @@ public class CarrosPainel extends JPanel {
         table = new JTable(tableModel);
         jSPane.setViewportView(table);
 
+
+        //Atribuindo o limitador de caracteres a cada um dos meus Inputs com os paramêtros de qtdCaracteres e o TipoEntrada
+        carMarcaField.setDocument(new LimitaCaracteres(20, LimitaCaracteres.TipoEntrada.MARCA));
+        carModeloField.setDocument(new LimitaCaracteres(30, LimitaCaracteres.TipoEntrada.MODELO));
+        carAnoField.setDocument(new LimitaCaracteres(4, LimitaCaracteres.TipoEntrada.ANO));
+        carPlacaField.setDocument(new LimitaCaracteres(8, LimitaCaracteres.TipoEntrada.PLACA));
+        carValorField.setDocument(new LimitaCaracteres(20, LimitaCaracteres.TipoEntrada.VALOR));
+        
+
+
         // Cria o banco de dados caso não tenha sido criado
         new CarrosDAO().criaTabela();
 
@@ -118,7 +129,7 @@ public class CarrosPainel extends JPanel {
                     || !carPlacaField.getText().isEmpty() || !carValorField.getText().isEmpty()) {
 
                 // Pergunta se o usuario quer realmente se cadastrar
-                int podCadast = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cadastrar o cliente?",
+                int podCadast = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cadastrar o carro?",
                         "Escolha uma opção", JOptionPane.YES_NO_OPTION);
                 // Verifica se a escolha foi YES
                 if (podCadast == JOptionPane.YES_OPTION) {

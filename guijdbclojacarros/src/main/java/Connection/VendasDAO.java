@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.DocFlavor.STRING;
+
 import Model.Vendas;
 
 public class VendasDAO {
@@ -22,7 +24,7 @@ public class VendasDAO {
 
     // Criação da tabela
     public void criarTabela() {
-        String query = "CREATE TABLE IF NOT EXISTS vendas_lojacarros (dataVenda date, cliente VARCHAR(255), FOREIGN KEY (cliente) REFERENCES clientes_lojacarros(cpf), carroVend VARCHAR(255), FOREIGN KEY(carroVend) REFERENCES carros_lojacarros, valorCompra VARCHAR(255), PRIMARY KEY(dataVenda));";
+        String query = "CREATE TABLE IF NOT EXISTS vendas_lojacarros (datavenda varchar(255), cliente VARCHAR(255), carroVend VARCHAR(255), valorCompra VARCHAR(255), PRIMARY KEY(dataVenda), FOREIGN KEY (valorCompra) REFERENCES carros_lojacarros (placa));";
 
         try (Statement stmt = this.connection.createStatement()) {
             stmt.execute(query);
@@ -34,6 +36,7 @@ public class VendasDAO {
             ConnectionFactory.closeConnection(this.connection);
         }
     }
+   
 
     // Metodo para listar os valores
     public List<Vendas> listarVendas() {
@@ -55,11 +58,10 @@ public class VendasDAO {
                 // Para cada registro no ResultSet, cria um objeto Carros com os valores do
                 // registro
                 Vendas venda = new Vendas(
-                    rs.getString("dataVenda"),
-                    rs.getString("carroVendi"),
-                    rs.getString("cliente"),
-                    rs.getString("valorCompra")
-                );
+                        rs.getString("datavenda"),
+                        rs.getString("carroVend"),
+                        rs.getString("cliente"),
+                        rs.getString("valorCompra"));
                 vendas.add(venda); // Add o objeto com todos os dados nele
             }
         } catch (SQLException ex) {
@@ -71,32 +73,31 @@ public class VendasDAO {
         return vendas; // Retorna a lista para o banco de dados
     }
 
-    //Cadastrar venda
-    public void cadastrar(String dataVenda, String carroVendi, String cliente, String valorCompra) {
+    // Cadastrar venda
+    public void cadastrar(String dataVenda, String carroVendi, String cliente) {
         PreparedStatement stmt = null;
         // Define a instrução SQL parametrizada para cadastrar na tabela
-        String query = "INSERT INTO vendas_lojacarros (dataVenda, cliente, carroVendi, valorCompra) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO vendas_lojacarros (datavenda, carroVend, cliente) VALUES (?, ?, ?)";
 
         try {
             // Preparando a consulta para a injeção
             stmt = connection.prepareStatement(query);
             stmt.setString(1, dataVenda);
-            stmt.setString(2, cliente);
-            stmt.setString(3, carroVendi);
-            stmt.setString(4, valorCompra);
+            stmt.setString(2, carroVendi);
+            stmt.setString(3, cliente);
+            
 
             // Executa a consulta
             stmt.executeUpdate();
             System.out.println("Dados inseridos com sucesso");
 
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao inserir dados no banco", e);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao inserir dados no banco", ex);
         } finally {
             ConnectionFactory.closeConnection(connection, stmt);
             // Fecha a conexão e o PreparedStatement
         }
     }
-
 
     // Inserir a criação de uma tabela, contendo Primary KEY e Foreign KEY para
     // buscar os dados dos nomes dos meus clientes (Usando a primary key de
