@@ -1,17 +1,14 @@
 package View;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.DefaultTableModel;
 
 import Connection.CarrosDAO;
@@ -21,8 +18,6 @@ import Controler.VendasControl;
 import Model.Carros;
 import Model.Clientes;
 import Model.Vendas;
-import javafx.scene.chart.PieChart.Data;
-import javafx.scene.input.MouseEvent;
 
 public class VendasView extends JPanel {
 
@@ -35,7 +30,6 @@ public class VendasView extends JPanel {
 
     private JTable tableVend;
     private DefaultTableModel tableModelVend;
-    private int linhaSelecionada = -1; // Valor para quando não selecionar nada
 
     public VendasView() {
         super();
@@ -59,12 +53,10 @@ public class VendasView extends JPanel {
         // Preenche o comboBox
         for (Carros carro : carros) {
             carrosComboBox.addItem(carro.getMarca() + " " + carro.getModelo() + " " + carro.getPlaca());
-
         }
 
         for (Clientes cliente : clientes) {
             clienteComboBox.addItem(cliente.getNome() + " " + cliente.getCpf());
-
         }
 
         // Adiciona os componentes
@@ -96,50 +88,26 @@ public class VendasView extends JPanel {
         // Atualizar os dados da tabela
         atualizarTabela();
 
-        /*
-         * // Evento para pegar a linha selecionada atraves do Mouse
-         * tableVend.addMouseListener(new MouseAdapter()){
-         * 
-         * @Override
-         * public void (MouseEvent evt) {
-         * linhaSelecionada = tableClien.rowAtPoint(evt.getPoint());
-         * if (linhaSelecionada != -1) {
-         * inputNome.setText((String) tableClien.getValueAt(linhaSelecionada, 0));
-         * inputEndereco.setText((String) tableClien.getValueAt(linhaSelecionada, 1));
-         * inputNumTel.setText((String) tableClien.getValueAt(linhaSelecionada, 2));
-         * inputCpf.setText((String) tableClien.getValueAt(linhaSelecionada, 3));
-         * inputDataNasc.setText((String) tableClien.getValueAt(linhaSelecionada, 4));
-         * }
-         * }
-         * });
-         */
-
-      
-        
-
-
         // Instanciando um obj da classe VendasConstrol
-
         VendasControl operacoesVend = new VendasControl(vendas, tableModelVend, tableVend);
 
         enviar.addActionListener(e -> {
-          // Pegar data e hora atual do computador
+            // Pegar data e hora atual do computador
             Date dataEHora = new Date();
-            //Formatando
+            // Formatando
             String data = new SimpleDateFormat("dd/mm").format(dataEHora);
             String hora = new SimpleDateFormat("HH:mm:ss aaaa").format(dataEHora);
             String horario = data + " " + hora;
 
-            
-            //Buscando o item selecionado no comboBox
+            // Buscando o item selecionado no comboBox
             Object carroSelecObj = carrosComboBox.getSelectedItem();
             Object clienteSelecObj = clienteComboBox.getSelectedItem();
 
-            //Transformando o item para String  
+            // Transformando o item para String
             String carroSelecStr = carroSelecObj.toString();
             String clienteSelecStr = clienteSelecObj.toString();
-        
-           operacoesVend.cadastrar(horario, carroSelecStr, clienteSelecStr); 
+
+            operacoesVend.cadastrar(horario, carroSelecStr, clienteSelecStr);
 
             carrosComboBox.setSelectedIndex(0);
             clienteComboBox.setSelectedIndex(0);
@@ -151,17 +119,7 @@ public class VendasView extends JPanel {
             carrosComboBox.setSelectedIndex(0);
             clienteComboBox.setSelectedIndex(0);
 
-            
-           
         });
-
-        // TAKS
-        // Criar um VendasDAO para armazenar as funções para meus botoes,
-        // Enviar= Inserir ao banco de dados e ao mesmo tempo excluir o carro comprado,
-        // mas manter no historico
-        // Histórico = Mostrar todos os dados já inseridos dos carros
-        // Limpar= limpar os campos, voltar o default. Exemplo: Os comboBoxs voltarem
-        // para a primeria linha
 
     }
 
@@ -176,5 +134,4 @@ public class VendasView extends JPanel {
                     venda.getValorCompra() });
         }
     }
-
 }
