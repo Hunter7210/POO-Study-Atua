@@ -154,9 +154,9 @@ public class VendasView extends JPanel {
     private void atualizarTabela() {
         tableModelVend.setRowCount(0); // Limpa todas as linhas existentes na tabela
         vendas = new VendasDAO().listarVendas();
-        // Obtém os carros atualizados do banco de dados
+        // Obtém as vendas atualizados do banco de dados
         for (Vendas venda : vendas) {
-            // Adiciona os dados de cada carro como uma nova linha na tabela Swing
+            // Adiciona os dados de cada venda como uma nova linha na tabela Swing
             tableModelVend.addRow(new Object[] { venda.getDataVenda(), venda.getCliente(), venda.getCarroVendi(),
                     venda.getValorCompra() });
         }
