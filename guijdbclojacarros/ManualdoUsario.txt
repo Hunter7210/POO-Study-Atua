@@ -2,73 +2,87 @@ Aplicação Loja de Carros - JAVA
 Por: Heitor Rodrigo Data: 26/11/2023
 
 Manual do Usuário- Aplicação Loja de Carros
+Passo a Passo do Usuário - Aplicação Loja de Carros
 
 Passo 1: Inicialização da Aplicação
-
 1.1. Abra a aplicação Loja de Carros.
-
 1.2. Observe a interface principal com as abas "CARROS", "CLIENTES" e "VENDAS" no painel lateral esquerdo.
 
 Passo 2: Gerenciamento de Carros
-
 2.1. Clique na aba "CARROS" para visualizar a lista de carros disponíveis na concessionária.
-
-2.2. Adicione um novo carro:
-
-Clique em "Adicionar Carro".
-Preencha as informações solicitadas no formulário.
-Clique em "Salvar" para registrar o novo carro.
-2.3. Edite ou exclua um carro:
-
-Selecione um carro na lista.
-Clique em "Editar" para modificar as informações.
-Clique em "Excluir" para remover o carro.
+2.2. Cadastrar um Novo Carro:
+2.2.1. Preencha os campos de texto com as informações do novo carro, incluindo Marca, Modelo, Ano, Placa e Valor.
+2.2.2. Clique no botão "Cadastrar".
+Uma mensagem de confirmação é exibida, perguntando se o usuário tem certeza de que deseja cadastrar o carro.
+Se confirmado, os dados são inseridos no banco de dados e a tabela é atualizada.
+Os campos de entrada são limpos para facilitar o cadastro de novos carros.
+2.3. Visualizar Carros Cadastrados
+Na tabela exibida, o usuário pode visualizar todos os carros cadastrados.
+Os dados na tabela incluem Marca, Modelo, Ano, Placa e Valor.
+2.4. Editar um Carro
+2.4.1. Selecione um carro na tabela clicando sobre a linha correspondente.
+Os campos de texto são automaticamente preenchidos com os dados do carro selecionado.
+Realize as alterações desejadas nos campos de texto.
+2.4.2.  Clique no botão "Editar".
+Uma mensagem de confirmação é exibida para confirmar as alterações.
+Se confirmado, os dados são atualizados no banco de dados e a tabela é atualizada.
+Os campos de entrada são limpos.
+2.5. Apagar um Carro
+2.5.1. Selecione um carro na tabela.
+Os campos de texto são automaticamente preenchidos com os dados do carro selecionado.
+2.5.2. Clique no botão "Apagar".
+Uma mensagem de confirmação é exibida para confirmar a exclusão do carro.
+Se confirmado, os dados são apagados do banco de dados e a tabela é atualizada.
+Os campos de entrada são limpos.
+2.6. Limpar Campos
+2.6.1. A qualquer momento, o usuário pode clicar no botão "Limpar" para remover todos os dados dos campos de entrada.
+Isso permite uma entrada fácil e rápida de novas informações.
 
 Passo 3: Gerenciamento de Clientes
-
 3.1. Vá para a aba "CLIENTES" para visualizar a lista de clientes cadastrados.
-
-3.2. Adicione um novo cliente:
-
-Clique em "Adicionar Cliente".
-Preencha os detalhes do cliente no formulário.
-Clique em "Salvar" para registrar o novo cliente.
-3.3. Edite ou exclua um cliente:
-
-Selecione um cliente na lista.
-Clique em "Editar" para fazer alterações.
-Clique em "Excluir" para remover o cliente.
+3.2. Você será apresentado a uma interface gráfica que inclui campos para inserir informações de clientes, botões para executar ações (cadastrar, editar, excluir, limpar) e uma tabela para exibir os dados dos clientes.
+3.3. Cadastro de Novo Cliente:
+3.3.1. Preenchimento dos Campos:
+Para cadastrar um novo cliente, preencha todos os campos obrigatórios na parte superior da interface, incluindo nome, CPF, data de nascimento, número de telefone e endereço.
+3.3.2. Clique em "Cadastrar":
+Após preencher os campos, clique no botão "Cadastrar" para adicionar o novo cliente ao banco de dados.
+3.3.3. Confirmação de Cadastro:
+Uma mensagem de confirmação será exibida, indicando que o cliente foi cadastrado com sucesso.
+3.4: Edição de Dados do Cliente Existente
+3.4.1. Seleção de Cliente para Edição:
+Para editar os dados de um cliente existente, clique na linha correspondente na tabela de clientes. Os dados do cliente selecionado serão automaticamente preenchidos nos campos acima.
+3.4.2. Atualização dos Campos:
+Faça as alterações necessárias nos campos de texto conforme desejado.
+3.4.3. Clique em "Editar":
+Clique no botão "Editar" para salvar as alterações no banco de dados.
+3.4.4. Confirmação de Edição:
+Uma mensagem será exibida indicando que os dados foram atualizados com sucesso.
+3.5: Exclusão de Cliente
+3.5.1. Seleção de Cliente para Exclusão:
+Para excluir um cliente, clique na linha correspondente na tabela.
+3.5.2. Clique em "Excluir":
+Pressione o botão "Excluir" para remover o cliente do banco de dados.
+3.5.3. Confirmação de Exclusão:
+Uma mensagem será exibida indicando que os dados foram excluídos com sucesso.
+3.6: Limpeza dos Campos:
+3.6.1. Para limpar todos os campos de entrada, clique no botão "Limpar".
+Confirmação de Limpeza:
+Uma mensagem será exibida para confirmar a limpeza dos campos.
 
 Passo 4: Registro de Vendas
-
 4.1. Acesse a aba "VENDAS" para visualizar informações sobre transações anteriores.
-
-4.2. Registre uma nova venda:
-
-Clique em "Registrar Venda".
-Preencha os detalhes da venda no formulário.
-Clique em "Salvar" para registrar a nova venda.
-
-4.3. Visualize detalhes da venda:
-
-Selecione uma venda na lista.
-Observe os detalhes e histórico da transação.
+4.2. Seleção de Carro e Cliente.
+No painel principal, use os menus suspensos para selecionar um carro disponível na loja no campo "Carro Vendido".
+Em seguida, escolha um cliente no campo "Cliente".
+4.3. Cadastrar Venda:
+4.3.1. Clique no botão "Cadastrar Venda" para registrar a venda do carro para o cliente selecionado.
+Uma mensagem de sucesso será exibida, e a tabela de vendas será automaticamente atualizada para refletir a nova venda.
+4.4. Visualização de Vendas:
+Abaixo dos menus suspensos, uma tabela exibe as vendas realizadas. Ela mostra informações como a data da venda, o carro vendido e o cliente.
+4.5. Limpar Campos:
+3.5.1. Se desejar limpar os campos de seleção, clique no botão "Limpar". Isso restaurará as opções dos menus suspensos para os valores padrão.
 
 Passo 5: Navegação Rápida
-
 5.1. Utilize os links na parte inferior do painel lateral para alternar rapidamente entre as abas desejadas.
-
-Passo 6: Atualização de Informações
-
-6.1. Após fazer alterações, clique em "Salvar" ou "Atualizar" para garantir que as modificações sejam registradas.
-
-Passo 7: Remoção de Registros
-
-7.1. Exclua um registro:
-
-Selecione o item desejado (carro, cliente ou venda).
-Clique em "Excluir" e confirme quando solicitado.
-
 Passo 8: Encerramento da Aplicação
-
 8.1. Feche a aplicação clicando no botão de fechar no canto superior direito da janela.
