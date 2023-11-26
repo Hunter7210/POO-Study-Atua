@@ -96,5 +96,4 @@ public class VendasDAO {
         }
     }
 
-    // FALTA A DOCUMENTAÇÃO, BASICAMENTE UM MANUAL DE COMO USAR
 }

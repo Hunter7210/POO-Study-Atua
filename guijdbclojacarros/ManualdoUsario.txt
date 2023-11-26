@@ -1,0 +1,74 @@
+Aplicação Loja de Carros - JAVA
+Por: Heitor Rodrigo Data: 26/11/2023
+
+Manual do Usuário- Aplicação Loja de Carros
+
+Passo 1: Inicialização da Aplicação
+
+1.1. Abra a aplicação Loja de Carros.
+
+1.2. Observe a interface principal com as abas "CARROS", "CLIENTES" e "VENDAS" no painel lateral esquerdo.
+
+Passo 2: Gerenciamento de Carros
+
+2.1. Clique na aba "CARROS" para visualizar a lista de carros disponíveis na concessionária.
+
+2.2. Adicione um novo carro:
+
+Clique em "Adicionar Carro".
+Preencha as informações solicitadas no formulário.
+Clique em "Salvar" para registrar o novo carro.
+2.3. Edite ou exclua um carro:
+
+Selecione um carro na lista.
+Clique em "Editar" para modificar as informações.
+Clique em "Excluir" para remover o carro.
+
+Passo 3: Gerenciamento de Clientes
+
+3.1. Vá para a aba "CLIENTES" para visualizar a lista de clientes cadastrados.
+
+3.2. Adicione um novo cliente:
+
+Clique em "Adicionar Cliente".
+Preencha os detalhes do cliente no formulário.
+Clique em "Salvar" para registrar o novo cliente.
+3.3. Edite ou exclua um cliente:
+
+Selecione um cliente na lista.
+Clique em "Editar" para fazer alterações.
+Clique em "Excluir" para remover o cliente.
+
+Passo 4: Registro de Vendas
+
+4.1. Acesse a aba "VENDAS" para visualizar informações sobre transações anteriores.
+
+4.2. Registre uma nova venda:
+
+Clique em "Registrar Venda".
+Preencha os detalhes da venda no formulário.
+Clique em "Salvar" para registrar a nova venda.
+
+4.3. Visualize detalhes da venda:
+
+Selecione uma venda na lista.
+Observe os detalhes e histórico da transação.
+
+Passo 5: Navegação Rápida
+
+5.1. Utilize os links na parte inferior do painel lateral para alternar rapidamente entre as abas desejadas.
+
+Passo 6: Atualização de Informações
+
+6.1. Após fazer alterações, clique em "Salvar" ou "Atualizar" para garantir que as modificações sejam registradas.
+
+Passo 7: Remoção de Registros
+
+7.1. Exclua um registro:
+
+Selecione o item desejado (carro, cliente ou venda).
+Clique em "Excluir" e confirme quando solicitado.
+
+Passo 8: Encerramento da Aplicação
+
+8.1. Feche a aplicação clicando no botão de fechar no canto superior direito da janela.
