@@ -36,7 +36,7 @@ public class ClientesPainel extends JPanel {
         // entrada de dados
         // Setando o layout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(new JLabel("Cadastro clientes"));
+        add(new JLabel("Cadastro Clientes"));
 
         JPanel inputPanelClien = new JPanel();
 
@@ -87,22 +87,22 @@ public class ClientesPainel extends JPanel {
 
         // Criação e desging da tabela
         tableModel = new DefaultTableModel(new Object[][] {},
-                new String[] { "NOME", "CPF", "DATA NASCIMENTO", "TELEFONE", "ENDEREÇO" });
+                new String[] { "NOME", "ENDEREÇO","TELEFONE","CPF", "DATA NASCIMENTO" });
         tableClien = new JTable(tableModel);
         jSPane.setViewportView(tableClien);
 
-        //Atribuindo o limitador de caracteres a cada um dos meus Inputs com os paramêtros de qtdCaracteres e o TipoEntrada
-        inputNome.setDocument(new LimitaCaracteres(40, LimitaCaracteres.TipoEntrada.NOME));
+        // Atribuindo o limitador de caracteres a cada um dos meus Inputs com os
+        // paramêtros de qtdCaracteres e o TipoEntrada
+        inputNome.setDocument(new LimitaCaracteres(30, LimitaCaracteres.TipoEntrada.NOME));
         inputCpf.setDocument(new LimitaCaracteres(14, LimitaCaracteres.TipoEntrada.CPF));
         inputDataNasc.setDocument(new LimitaCaracteres(10, LimitaCaracteres.TipoEntrada.DATANASC));
         inputNumTel.setDocument(new LimitaCaracteres(16, LimitaCaracteres.TipoEntrada.TELEFONE));
-        inputEndereco.setDocument(new LimitaCaracteres(40, LimitaCaracteres.TipoEntrada.ENDERECO));
-
+        inputEndereco.setDocument(new LimitaCaracteres(30, LimitaCaracteres.TipoEntrada.ENDERECO));
 
         // Cria o banco de dados caso não tenha sido criado
         new ClientesDAO().criarTabela();
 
-         // Atualiza a tabela
+        // Atualiza a tabela
         atualizarTabela();
 
         // Evento para pegar a linha selecionada atraves do Mouse
@@ -126,10 +126,8 @@ public class ClientesPainel extends JPanel {
         // Tratamento de eventos
         cadastrar.addActionListener(e -> {
             // Verifica se todos os campos estão preenchidos
-            if (!inputNome.getText().isEmpty() || !inputEndereco.getText().isEmpty() || !inputNumTel.getText().isEmpty()
-                    || !inputCpf.getText().isEmpty() || !inputDataNasc.getText().isEmpty()) {
-
-            
+            if (!inputNome.getText().isEmpty() && !inputEndereco.getText().isEmpty() && !inputNumTel.getText().isEmpty()
+                    && !inputCpf.getText().isEmpty() && !inputDataNasc.getText().isEmpty()) {
 
                 // Pergunta se o usuario quer realmente se cadastrar
                 int podCadast = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cadastrar o cliente?",
@@ -137,8 +135,8 @@ public class ClientesPainel extends JPanel {
                 // Verifica se a escolha foi YES
                 if (podCadast == JOptionPane.YES_OPTION) {
 
-                    operacoesClient.cadastrar(inputNome.getText(), inputEndereco.getText(), inputNumTel.getText(),
-                            inputCpf.getText(), inputDataNasc.getText());
+                    operacoesClient.cadastrar(inputNome.getText(), inputEndereco.getText(), inputNumTel.getText(), inputCpf.getText(),
+                            inputDataNasc.getText());
                     // Limpa os campos de entrada após a operação de cadastro
                     inputNome.setText("");
                     inputEndereco.setText("");
@@ -171,32 +169,36 @@ public class ClientesPainel extends JPanel {
         // Configura a ação do botão "editar" para atualizar um registro no banco de
         // dados
         editar.addActionListener(e -> {
-            if (!inputNome.getText().isEmpty() || !inputEndereco.getText().isEmpty() || !inputNumTel.getText().isEmpty()
-                    || !inputCpf.getText().isEmpty() || !inputDataNasc.getText().isEmpty()) {
+            if (linhaSelecionada != -1) {
+                if (!inputNome.getText().isEmpty() && !inputEndereco.getText().isEmpty()
+                        && !inputNumTel.getText().isEmpty()
+                        && !inputCpf.getText().isEmpty() && !inputDataNasc.getText().isEmpty()) {
 
-                // Confirmação se deseja realmente atualizar os dados
-                int podAtualizar = JOptionPane.showConfirmDialog(editar,
-                        "Deseja realmente atualizar os dados do cliente?",
-                        "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
-                if (podAtualizar == JOptionPane.YES_OPTION) {
-                    // Chama o método "atualizar" do objeto operacoesClient com os valores dos
-                    // campos de
-                    // entrada
-                    operacoesClient.atualizar(inputNome.getText(), inputEndereco.getText(),
-                            inputNumTel.getText(), inputCpf.getText(), inputDataNasc.getText());
-                    // Limpa os campos de entrada após a operação de atualização
-                    inputNome.setText("");
-                    inputEndereco.setText("");
-                    inputNumTel.setText("");
-                    inputCpf.setText("");
-                    inputDataNasc.setText("");
+                    // Confirmação se deseja realmente atualizar os dados
+                    int podAtualizar = JOptionPane.showConfirmDialog(editar,
+                            "Deseja realmente atualizar os dados do cliente?",
+                            "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
+                    if (podAtualizar == JOptionPane.YES_OPTION) {
+                        // Chama o método "atualizar" do objeto operacoesClient com os valores dos
+                        // campos de entrada
+                        operacoesClient.atualizar(inputNome.getText(), inputEndereco.getText(),
+                                inputNumTel.getText(), inputCpf.getText(), inputDataNasc.getText());
+                        // Limpa os campos de entrada após a operação de atualização
+                        inputNome.setText("");
+                        inputEndereco.setText("");
+                        inputNumTel.setText("");
+                        inputCpf.setText("");
+                        inputDataNasc.setText("");
 
-                    // Retorna ao usuario uma confirmação
-                    JOptionPane.showMessageDialog(editar, "Dados atualizados com sucesso!");
+                        // Retorna ao usuario uma confirmação
+                        JOptionPane.showMessageDialog(editar, "Dados atualizados com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(editar,
+                                "Infelizmente, não foi possivel cadastrar seus dados!\nPor favor, verifique se os dados estão corretos!");
+                        // Fecha o JOptionPane automaticamente
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(editar,
-                            "Infelizmente, não foi possivel cadastrar seus dados!\nPor favor, verifique se os dados estão corretos!");
-                    // Fecha o JOptionPane automaticamente
+                    JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Necessário selecionar um dado abaixo.");
@@ -205,11 +207,12 @@ public class ClientesPainel extends JPanel {
 
         // Configura a ação do botão "apagar" para excluir um registro no banco de dados
         excluir.addActionListener(e -> {
-            if (!inputNome.getText().isEmpty() || !inputEndereco.getText().isEmpty() || !inputNumTel.getText().isEmpty()
-                    || !inputCpf.getText().isEmpty() || !inputDataNasc.getText().isEmpty()) {
+            // Verifica se há alguma linha selecionada
+            if (linhaSelecionada != -1) {
+                // Verifica se todos os campos estão vazios
 
-                int desejApag = JOptionPane.showConfirmDialog(excluir, "Deseja realmente deletar estes dados?",
-                        "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
+                int desejApag = JOptionPane.showConfirmDialog(this, "Deseja realmente deletar estes dados?",
+                        "Escolha uma opção:", JOptionPane.YES_NO_OPTION);
 
                 if (desejApag == JOptionPane.YES_OPTION) {
                     // Chama o método "apagar" do objeto operacoesClient com o valor do campo de
@@ -223,12 +226,13 @@ public class ClientesPainel extends JPanel {
                     inputCpf.setText("");
                     inputDataNasc.setText("");
 
-                    JOptionPane.showMessageDialog(excluir, "Dados apagados com sucesso!");
+                    JOptionPane.showMessageDialog(this, "Dados apagados com sucesso!");
+                    
 
                 } else {
                     // Se a escolha for != de YES
                     // Busca uma segunda confirmação
-                    int desejReturn = JOptionPane.showConfirmDialog(cadastrar, "Deseja retomar o cadastro?",
+                    int desejReturn = JOptionPane.showConfirmDialog(this, "Deseja retomar o cadastro?",
                             "Escolha uma opção", JOptionPane.YES_NO_OPTION);
                     if (desejReturn == JOptionPane.YES_OPTION) {
                         // Fecha somente o JOptionPane
@@ -252,7 +256,7 @@ public class ClientesPainel extends JPanel {
         limpar.addActionListener(e -> {
             if (!inputNome.getText().isEmpty() || !inputEndereco.getText().isEmpty() || !inputNumTel.getText().isEmpty()
                     || !inputCpf.getText().isEmpty() || !inputDataNasc.getText().isEmpty()) {
-                int desejLimp = JOptionPane.showConfirmDialog(limpar, "Deseja realmente limpar os dados dos campos?",
+                int desejLimp = JOptionPane.showConfirmDialog(this, "Deseja realmente limpar os dados dos campos?",
                         "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
                 if (desejLimp == JOptionPane.YES_OPTION) {
                     // Limpa todos os campos
@@ -263,26 +267,26 @@ public class ClientesPainel extends JPanel {
                     inputDataNasc.setText("");
                     // Fecha somente o JOptionPane
                     // Fecha o JOptionPane automaticamente
-                    JOptionPane.showMessageDialog(limpar, "Campos limpos com sucesso!");
+                    atualizarTabela();
+                    JOptionPane.showMessageDialog(this, "Campos limpos com sucesso!");
                 } else {
-                    // Fecha somente o JOptionPane
                     // Fecha o JOptionPane automaticamente
                 }
             } else {
-                //Não realiza nada pois não ha necessidade
+                JOptionPane.showMessageDialog(this, "Necessário preencher algum campo.");
             }
         });
     }
 
     // Método para atualizar a tabela de exibição com dados do banco de dados
-    private void atualizarTabela() {
+    public void atualizarTabela() {
         tableModel.setRowCount(0); // Limpa todas as linhas existentes na tabela
         clientes = new ClientesDAO().listarClientes();
         // Obtém os carros atualizados do banco de dados
         for (Clientes cliente : clientes) {
             // Adiciona os dados de cada carro como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(), cliente.getNumTel(),
-                    cliente.getCpf(), cliente.getDataNasc() });
+            tableModel.addRow(new Object[] { cliente.getNome(),cliente.getEndereco(),
+                    cliente.getNumTel(), cliente.getCpf(),cliente.getDataNasc() });
         }
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -78,7 +79,7 @@ public class VendasView extends JPanel {
         add(jSPane);
 
         tableModelVend = new DefaultTableModel(new Object[][] {},
-                new String[] { "Data Venda", "Cliente", "Carro Vendido", "Valor" });
+                new String[] { "Data Venda", "Carro Vendido", "Cliente" });
         tableVend = new JTable(tableModelVend);
         jSPane.setViewportView(tableVend);
 
@@ -90,37 +91,63 @@ public class VendasView extends JPanel {
 
         // Instanciando um obj da classe VendasConstrol
         VendasControl operacoesVend = new VendasControl(vendas, tableModelVend, tableVend);
+        // Buscando o item selecionado no comboBox
 
+        // Ao clicar no botao enviar executa:
         enviar.addActionListener(e -> {
-            // Pegar data e hora atual do computador
-            Date dataEHora = new Date();
-            // Formatando
-            String data = new SimpleDateFormat("dd/mm").format(dataEHora);
-            String hora = new SimpleDateFormat("HH:mm:ss aaaa").format(dataEHora);
-            String horario = data + " " + hora;
 
-            // Buscando o item selecionado no comboBox
             Object carroSelecObj = carrosComboBox.getSelectedItem();
             Object clienteSelecObj = clienteComboBox.getSelectedItem();
 
-            // Transformando o item para String
-            String carroSelecStr = carroSelecObj.toString();
-            String clienteSelecStr = clienteSelecObj.toString();
+            int carroSelecInt = carrosComboBox.getSelectedIndex();
+            int clienteSelecInt = clienteComboBox.getSelectedIndex();
 
-            operacoesVend.cadastrar(horario, carroSelecStr, clienteSelecStr);
+            if (carroSelecInt != 0 || clienteSelecInt != 0) {
 
-            carrosComboBox.setSelectedIndex(0);
-            clienteComboBox.setSelectedIndex(0);
+                // Pegar data e hora atual do computador
+                Date dataEHora = new Date();
+                // Formatando
+                String data = new SimpleDateFormat("dd/mm").format(dataEHora);
+                String hora = new SimpleDateFormat("HH:mm:ss aaaa").format(dataEHora);
+                String horario = data + " " + hora;
+
+                // Transformando o item para String
+                String carroSelecStr = carroSelecObj.toString();
+                String clienteSelecStr = clienteSelecObj.toString();
+
+                operacoesVend.cadastrar(horario, carroSelecStr, clienteSelecStr);
+
+                carrosComboBox.setSelectedIndex(0);
+                clienteComboBox.setSelectedIndex(0);
+
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Por favor, escolha um carro e um cliente!");
+            }
+
         });
 
         // Criando um evento para resetar os dados selecionados
         limpar.addActionListener(e -> {
+            Object carroSelecObj = carrosComboBox.getSelectedItem();
+            Object clienteSelecObj = clienteComboBox.getSelectedItem();
+
             // Retona ao index inicial
-            carrosComboBox.setSelectedIndex(0);
-            clienteComboBox.setSelectedIndex(0);
+            if (!carroSelecObj.equals("Selecionar o carro") || !clienteSelecObj.equals("Selecionar o cliente")) {
+                // Chama o metodo limparCombo, com os seus parametros
+                limparCombo(carroSelecObj, clienteSelecObj);
+                JOptionPane.showMessageDialog(this, "Campos limpos com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Necessário preencher algum campo!");
+            }
 
         });
 
+    }
+
+    private void limparCombo(Object combo1, Object combo2) {
+        carrosComboBox.setSelectedIndex(0);
+        clienteComboBox.setSelectedIndex(0);
     }
 
     // Método para atualizar a tabela de exibição com dados do banco de dados

@@ -133,7 +133,7 @@ public class ClientesDAO { // Responsável pela injeção de SQL
 
             stmt.setString(1, cpf);
             stmt.executeUpdate();
-            System.out.println("Dados apagado com sucesso");
+            System.out.println("Dados apagados com sucesso");
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao apagar dados no banco de dados.", e);

@@ -1,6 +1,5 @@
 package Controler;
 
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -31,10 +30,8 @@ public class ClientesConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
         // Obtém os clientes atualizados do banco de dados
         for (Clientes cliente : clientes) {
             // Adiciona os dados de cada cliente como uma nova linha na tabela Swing
-            tableModel.addRow(new Object[] { cliente.getNome(), cliente.getEndereco(), cliente.getNumTel(), cliente.getCpf(), cliente.getDataNasc()});
+            tableModel.addRow(new Object[] {cliente.getNome(), cliente.getEndereco(), cliente.getNumTel(), cliente.getCpf(), cliente.getDataNasc()});
         }
-
-        
     }
 
     // Método para cadastrar um novo cliente no banco de dados
@@ -53,12 +50,10 @@ public class ClientesConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
     }
 
     // Método para apagar um cliente do banco de dados
-    public void apagar(String cpf) { //Placa é a minha chave primária
+    public void apagar(String cpf) { //CPF é a minha chave primária
         new ClientesDAO().apagar(cpf);
         // Chama o método de exclusão no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após a exclusão
     }
-
-   
 }
 

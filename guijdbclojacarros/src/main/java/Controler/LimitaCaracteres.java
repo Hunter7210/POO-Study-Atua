@@ -21,7 +21,6 @@ public class LimitaCaracteres extends PlainDocument {
         this.tpEntrada = tpEntrada; // Atribui o enumerador ao meu construtor
     }
 
-    // E
     @Override
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 
@@ -66,7 +65,7 @@ public class LimitaCaracteres extends PlainDocument {
                 break;
             case
                     CPF:
-                recebfilt = "[^\\p{IsLatin}\\-0-9/]"; // 123.123.123/12
+                recebfilt = "[^\\-0-9\\/]"; // 123.123.123/12
                 break;
             case
                     DATANASC:

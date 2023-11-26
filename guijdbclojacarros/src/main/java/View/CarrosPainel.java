@@ -85,22 +85,21 @@ public class CarrosPainel extends JPanel {
         table = new JTable(tableModel);
         jSPane.setViewportView(table);
 
-
-        //Atribuindo o limitador de caracteres a cada um dos meus Inputs com os paramêtros de qtdCaracteres e o TipoEntrada
+        // Atribuindo o limitador de caracteres a cada um dos meus Inputs com os
+        // paramêtros de qtdCaracteres e o TipoEntrada
         carMarcaField.setDocument(new LimitaCaracteres(20, LimitaCaracteres.TipoEntrada.MARCA));
         carModeloField.setDocument(new LimitaCaracteres(30, LimitaCaracteres.TipoEntrada.MODELO));
         carAnoField.setDocument(new LimitaCaracteres(4, LimitaCaracteres.TipoEntrada.ANO));
         carPlacaField.setDocument(new LimitaCaracteres(8, LimitaCaracteres.TipoEntrada.PLACA));
         carValorField.setDocument(new LimitaCaracteres(20, LimitaCaracteres.TipoEntrada.VALOR));
-        
-
 
         // Cria o banco de dados caso não tenha sido criado
         new CarrosDAO().criaTabela();
 
+
         // incluindo elementos do banco na criação do painel
         atualizarTabela();
-
+        
         // tratamento de Eventos
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -124,9 +123,9 @@ public class CarrosPainel extends JPanel {
         // Tratamento de eventos
         cadastrar.addActionListener(e -> {
             // Verifica se todos os campos estão preenchidos
-            if (!carMarcaField.getText().isEmpty() || !carModeloField.getText().isEmpty()
-                    || !carAnoField.getText().isEmpty()
-                    || !carPlacaField.getText().isEmpty() || !carValorField.getText().isEmpty()) {
+            if (!carMarcaField.getText().isEmpty() && !carModeloField.getText().isEmpty()
+                    && !carAnoField.getText().isEmpty()
+                    && !carPlacaField.getText().isEmpty() && !carValorField.getText().isEmpty()) {
 
                 // Pergunta se o usuario quer realmente se cadastrar
                 int podCadast = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja cadastrar o carro?",
@@ -165,39 +164,47 @@ public class CarrosPainel extends JPanel {
             }
         });
 
-        // Configura a ação do botão "editar" para atualizar um registro no banco de dados
+        // Configura a ação do botão "editar" para atualizar um registro no banco de
+        // dados
         editar.addActionListener(e -> {
-            if (!carMarcaField.getText().isEmpty() || carAnoField.getText().isEmpty()
-                    || !carModeloField.getText().isEmpty() || !carPlacaField.getText().isEmpty()
-                    || !carValorField.getText().isEmpty()) {
-                // Confirmação se deseja realmente atualizar os dados
-                int podAtualizar = JOptionPane.showConfirmDialog(editar, "Deseja realmente atualizar os dados",
-                        "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
-                if (podAtualizar == JOptionPane.YES_OPTION) {
-                    // Chama o método "atualizar" do objeto operacoes com os valores dos campos de entrada
-                    // Transforma os dados de anoDigitado em Inteiro
-                    int anoDigitado = Integer.parseInt(carAnoField.getText());
-                    // Compara se o ano está entre 1920 && 2024
-                    
-                    if (anoDigitado > 1920 && anoDigitado < 2024) {
-                        operacoes.atualizar(carMarcaField.getText(), carModeloField.getText(),
-                                carAnoField.getText(), carPlacaField.getText(), carValorField.getText());
-                        // Limpa os campos de entrada após a operação de atualização
-                        carMarcaField.setText("");
-                        carModeloField.setText("");
-                        carAnoField.setText("");
-                        carPlacaField.setText("");
-                        carValorField.setText("");
+            if (linhaSelecionada != -1) {
 
-                        // Retorna ao usuario uma confirmação
-                        JOptionPane.showMessageDialog(editar, "Dados atualizados com sucesso!");
+                if (!carMarcaField.getText().isEmpty() && carAnoField.getText().isEmpty()
+                        && !carModeloField.getText().isEmpty() && !carPlacaField.getText().isEmpty()
+                        && !carValorField.getText().isEmpty()) {
+
+                    // Confirmação se deseja realmente atualizar os dados
+                    int podAtualizar = JOptionPane.showConfirmDialog(editar, "Deseja realmente atualizar os dados",
+                            "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
+                    if (podAtualizar == JOptionPane.YES_OPTION) {
+                        // Chama o método "atualizar" do objeto operacoes com os valores dos campos de
+                        // entrada
+                        // Transforma os dados de anoDigitado em Inteiro
+                        int anoDigitado = Integer.parseInt(carAnoField.getText());
+                        // Compara se o ano está entre 1920 && 2024
+
+                        if (anoDigitado > 1920 && anoDigitado < 2024) {
+                            operacoes.atualizar(carMarcaField.getText(), carModeloField.getText(),
+                                    carAnoField.getText(), carPlacaField.getText(), carValorField.getText());
+                            // Limpa os campos de entrada após a operação de atualização
+                            carMarcaField.setText("");
+                            carModeloField.setText("");
+                            carAnoField.setText("");
+                            carPlacaField.setText("");
+                            carValorField.setText("");
+
+                            // Retorna ao usuario uma confirmação
+                            JOptionPane.showMessageDialog(editar, "Dados atualizados com sucesso!");
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "DATA INVALÍDA\nDigite uma data válida (1920 até 2024)");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "DATA INVALÍDA\nDigite uma data válida (1920 até 2024)");
+                        JOptionPane.showMessageDialog(editar,
+                                "Infelizmente, não foi possivel cadastrar seus dados!\nPor favor, verifique se os dados estão corretos!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(editar,
-                            "Infelizmente, não foi possivel cadastrar seus dados!\nPor favor, verifique se os dados estão corretos!");
-
+                    JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Necessário selecionar um dado abaixo.");
@@ -206,9 +213,9 @@ public class CarrosPainel extends JPanel {
 
         // Configura a ação do botão "apagar" para excluir um registro no banco de dados
         apagar.addActionListener(e -> {
-            if (!carMarcaField.getText().isEmpty() || !carAnoField.getText().isEmpty()
-                    || !carModeloField.getText().isEmpty() || !carPlacaField.getText().isEmpty()
-                    || !carValorField.getText().isEmpty()) {
+            if (!carMarcaField.getText().isEmpty() && !carAnoField.getText().isEmpty()
+                    && !carModeloField.getText().isEmpty() && !carPlacaField.getText().isEmpty()
+                    && !carValorField.getText().isEmpty()) {
 
                 int desejApag = JOptionPane.showConfirmDialog(apagar, "Deseja realmente deletar estes dados?",
                         "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
@@ -254,23 +261,27 @@ public class CarrosPainel extends JPanel {
                     || !carModeloField.getText().isEmpty() || !carPlacaField.getText().isEmpty()
                     || !carValorField.getText().isEmpty()) {
 
-                int desejLimp = JOptionPane.showConfirmDialog(limpar, "Deseja realmente limpar os dados nos campos?",
+                int desejLimp = JOptionPane.showConfirmDialog(this, "Deseja realmente limpar os dados nos campos?",
                         "Escolha uma opção: ", JOptionPane.YES_NO_OPTION);
                 if (desejLimp == JOptionPane.YES_OPTION) {
+                    linhaSelecionada = -1;
+
                     // Limpa todos os campos
                     carMarcaField.setText("");
                     carModeloField.setText("");
                     carAnoField.setText("");
                     carPlacaField.setText("");
                     carValorField.setText("");
-                    // Fecha somente o JOptionPane
+                    atualizarTabela();
+                    // Retorna esta mensagem ao usario
+                    JOptionPane.showMessageDialog(this, "Campos limpos com sucesso!");
 
-                    JOptionPane.showMessageDialog(limpar, "Campos limpos com sucesso!");
                 } else {
                     // Fecha somente o JOptionPane
                 }
             } else {
-                // Não realiza nada pois não há necessidade
+                JOptionPane.showMessageDialog(this, "Necessário preencher algum campo.");
+
             }
 
         });

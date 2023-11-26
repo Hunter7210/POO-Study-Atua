@@ -44,7 +44,7 @@ public class JanelaPrincipal extends JFrame {
         painelComponen.add(vendas);
 
         titulo.setForeground(Color.LIGHT_GRAY);
-        carros.setForeground(Color.BLACK);
+        carros.setForeground(Color.WHITE);
         clientes.setForeground(Color.BLACK);
         vendas.setForeground(Color.BLACK);
 
