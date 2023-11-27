@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Connection.CarrosDAO;
 import Model.Carros;
+import logs.RegistrosSistemas;
 
 public class CarrosConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
 
@@ -38,6 +39,8 @@ public class CarrosConstrol { // AQUI É ONDE SE AFUNILA AS INFOMAÇÕES
     // Método para cadastrar um novo carro no banco de dados
     public void cadastrar(String marca, String modelo, String ano, String placa, String valor) {
         new CarrosDAO().cadastrar(marca, modelo, ano, placa, valor);
+        new RegistrosSistemas().registroOperacao("Carro cadastrado: "+marca+" "+modelo+" Valor: "+valor);
+        
         // Chama o método de cadastro no banco de dados
         atualizarTabela(); // Atualiza a tabela de exibição após o cadastro
 
